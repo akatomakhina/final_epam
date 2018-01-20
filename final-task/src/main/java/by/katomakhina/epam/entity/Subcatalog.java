@@ -3,11 +3,21 @@ package by.katomakhina.epam.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Status extends Id implements Serializable{
+public class Subcatalog extends Id implements Serializable {
+    int id;
+    String name;
 
-    private String name;
+    public Subcatalog() {
+    }
 
-    public Status() {
+    //@Override
+    public int getId() {
+        return id;
+    }
+
+    //@Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -23,20 +33,22 @@ public class Status extends Id implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Status status = (Status) o;
-        return Objects.equals(name, status.name);
+        Subcatalog that = (Subcatalog) o;
+        return id == that.id &&
+                Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(super.hashCode(), name);
+        return Objects.hash(super.hashCode(), id, name);
     }
 
     @Override
     public String toString() {
-        return "Status{" +
-                "name='" + name + '\'' +
+        return "Subcatalog{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

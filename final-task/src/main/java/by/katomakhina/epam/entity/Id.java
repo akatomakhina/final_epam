@@ -13,6 +13,9 @@ public class Id {
         this.id = id;
     }
 
+    public Id() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -25,5 +28,12 @@ public class Id {
     public int hashCode() {
 
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Id{" +
+                "id=" + id +
+                '}';
     }
 }
