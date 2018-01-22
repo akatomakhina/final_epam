@@ -10,13 +10,9 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-/**
- * Connection pool holds created connections, because creating a network connection to a database server is expensive.
- * Пул соединений содержит созданные соединения, потому что создание сетевого подключения к серверу базы данных дорого.
- */
 
 public class DBConnectionPool {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("database");
@@ -28,23 +24,9 @@ public class DBConnectionPool {
     private Server server;
     private Connection connection;
 
-    /**
-     * prohibits creating instance of class outside the package
-     * запрещает создание экземпляра класса вне пакета
-     */
     private DBConnectionPool() {
     }
 
-    /**
-     * starts tcp server and loads H2 driver
-     * In this case tcp server is more preferred than embedded mode because server enables using database editor when application is running.
-     *
-     * запускает tcp-сервер и загружает драйвер H2
-     * В этом случае tcp-сервер более предпочтителен, чем встроенный режим, потому
-     * что сервер позволяет использовать редактор базы данных при запуске приложения.
-     *
-     * @throws ConnectionPoolException
-     */
     public void init() throws ConnectionPoolException {
         try {
             Driver.load();
@@ -57,21 +39,10 @@ public class DBConnectionPool {
         }
     }
 
-    /**
-     * returns an existing connection if it's not closed.
-     * If connection is closed method gets connection by driver manager, and puts it to queue.
-     * Then method invokes itself.
-     *
-     * возвращает существующее соединение, если оно не закрыто.
-     * Если соединение закрыто, метод получает соединение диспетчера драйверов и помещает его в очередь.
-     * Затем метод вызывает себя.
-     *
-     * @return
-     * @throws ConnectionPoolException
-     */
     public synchronized Connection getConnection() throws ConnectionPoolException {
         try {
-            if (isDbConnected(connection)) {
+            //if (isDbConnected(connection))
+            if (!QUEUE.isEmpty()) {
                 while (!QUEUE.isEmpty()) {
                     connection = QUEUE.peek();
                     if (connection.isValid(500)) {
@@ -102,13 +73,6 @@ public class DBConnectionPool {
         }
     }
 
-    /**
-     * closes connection and removes from queue
-     *
-     * закрывает соединение и удаляет из очереди
-     *
-     * @throws ConnectionPoolException
-     */
     public void closeConnection() throws ConnectionPoolException {
         try {
             if (QUEUE.peek() != null) {
@@ -136,17 +100,17 @@ public class DBConnectionPool {
 
     }
 
-    public  boolean isDbConnected(Connection connection) {
+    /*public boolean isDbConnected(Connection connection) {
         //final String CHECK_SQL_QUERY = "SELECT 1";
         try {
-            if(!connection.isClosed() || connection!=null){
+            if (!connection.isClosed() || connection != null) {
                 return true;
             }
         } catch (SQLException e) {
             return false;
         }
         return false;
-    }
+    }*/
 
 
     public static DBConnectionPool getInstance() {

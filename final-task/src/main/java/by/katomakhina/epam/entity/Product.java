@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Product extends Id implements Serializable {
     private String title;
     private String description;
-    private int price;
+    private double price;
     private int id_catalog;
 
     public Product() {
@@ -28,7 +28,7 @@ public class Product extends Id implements Serializable {
         this.description = description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
