@@ -1,4 +1,8 @@
 package by.katomakhina.epam.dao.user;
 
-public interface UserDAO {
+import by.katomakhina.epam.dao.exception.DAOException;
+import by.katomakhina.epam.entity.User;
+
+public interface UserDAO{
+    public void create(User user) throws DAOException;
 }
