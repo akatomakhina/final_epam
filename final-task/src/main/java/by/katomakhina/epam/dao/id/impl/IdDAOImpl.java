@@ -13,8 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class IdDAOImpl implements IdDAO {
-    private static final Logger LOGGER = LogManager.getLogger(EntityFactory.class);
+public abstract class IdDAOImpl implements IdDAO {
+    private static final Logger Logger = LogManager.getLogger(EntityFactory.class);
 
     public Connection connection;
 
@@ -29,9 +29,9 @@ public class IdDAOImpl implements IdDAO {
             statement.setInt(1, id);
             ResultSet set = statement.executeQuery();
             EntityFactory<Id> factory = new EntityFactory<>();
-            object = factory.getInstanceFromResSet(set, aClass);
+            object = factory.getInstanceFromResultSet(set, aClass);
         } catch (Exception e) {
-            LOGGER.error("Cannot find by ID");
+            Logger.error("Cannot find by ID");
             e.printStackTrace();
             throw new DAOException("Cannot find by ID");
         }
@@ -47,12 +47,12 @@ public class IdDAOImpl implements IdDAO {
                 idToReturn = keys.getInt(1);
             }
             if (idToReturn == 0) {
-                throw new SQLException("Cannot obtain generated id");
+                throw new SQLException("Cannot take generated id");
             }
             return idToReturn;
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DAOException("Cannot obtain generated keys");
+            throw new DAOException("Cannot take generated keys");
         }
     }
 
@@ -61,10 +61,10 @@ public class IdDAOImpl implements IdDAO {
         try {
             statement.close();
         } catch (SQLException e) {
-            LOGGER.error("Cannot close statement", e);
+            Logger.error("Cannot close statement", e);
             e.printStackTrace();
         } catch (NullPointerException e) {
-            LOGGER.error("Connection is null");
+            Logger.error("Connection is null");
         }
     }
 
@@ -73,10 +73,10 @@ public class IdDAOImpl implements IdDAO {
         try {
             resultSet.close();
         } catch (SQLException e) {
-            LOGGER.error("Cannot close result set", e);
+            Logger.error("Cannot close result set", e);
             e.printStackTrace();
         } catch (NullPointerException e) {
-            LOGGER.error("Connection is null");
+            Logger.error("Connection is null");
         }
     }
 

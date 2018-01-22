@@ -10,16 +10,16 @@ import java.sql.SQLException;
 
 
 public class EntityFactory<T> {
-    private static final Logger LOGGER = LogManager.getLogger(EntityFactory.class);
+    private static final Logger Logger = LogManager.getLogger(EntityFactory.class);
 
 
-    public T getInstanceFromResSet(ResultSet set, Class<T> aClass) throws DAOException {
+    public T getInstanceFromResultSet(ResultSet set, Class<T> aClass) throws DAOException {
 
         T object = null;
         try {
             object = aClass.newInstance();
         } catch (IllegalAccessException | InstantiationException e) {
-            LOGGER.error("Cannot create an instance of Class", e);
+            Logger.error("Cannot create an instance of class", e);
             e.printStackTrace();
         }
         try {
@@ -32,10 +32,10 @@ public class EntityFactory<T> {
             } else if (object instanceof Order) {
                 object = (T) getOrder(set);
             } else if (object instanceof Subcatalog) {
-                object = (T) getSubcategory(set);
+                object = (T) getSubcatalog(set);
             }
         } catch (ClassCastException e) {
-            throw new DAOException("Cannot get item by Id");
+            throw new DAOException("Cannot get item by id");
         }
         return object;
     }
@@ -43,37 +43,36 @@ public class EntityFactory<T> {
     private User getUser(ResultSet set) throws DAOException {
         try {
             User user = new User();
-            while (set.next()) {
+            while (set.next()) {  //iteration
                 user.setId(set.getInt("id"));
-                user.setFirstName(set.getString("FirstName"));
-                user.setLastName(set.getString("LastName"));
-                user.setLogin(set.getString("loggin"));
+                user.setFirstName(set.getString("firstName"));
+                user.setLastName(set.getString("lastName"));
+                user.setLogin(set.getString("login"));
                 user.setPassword(set.getString("password"));
                 user.setEmail(set.getString("email"));
-                user.setBalance(set.getInt("balance"));
                 user.setBanned(set.getBoolean("banned"));
-                //user.setRole(set.getString("role_name"));
+                user.setBalance(set.getInt("balance"));
             }
             return user;
         } catch (SQLException e) {
-            LOGGER.error("Cannot get User by Id");
+            Logger.error("Cannot get user by id");
             e.printStackTrace();
-            throw new DAOException("Cannot get User by Id");
+            throw new DAOException("Cannot get user by id");
         }
     }
 
     private Catalog getCatalog(ResultSet set) throws DAOException {
         try {
-            Catalog category = new Catalog();
+            Catalog catalog = new Catalog();
             while (set.next()) {
-                category.setName(set.getString("category_name"));
-                category.setId(set.getInt("id"));
+                catalog.setId(set.getInt("id"));
+                catalog.setName(set.getString("catalog_name"));
             }
-            return category;
+            return catalog;
         } catch (SQLException e) {
-            LOGGER.error("Cannot get Category by Id");
+            Logger.error("Cannot get category by id");
             e.printStackTrace();
-            throw new DAOException("Cannot get Category by id");
+            throw new DAOException("Cannot get category by id");
         }
     }
 
@@ -90,7 +89,7 @@ public class EntityFactory<T> {
             }
             return product;
         } catch (SQLException e) {
-            LOGGER.error("Cannot get product by Id");
+            Logger.error("Cannot get product by id");
             e.printStackTrace();
             throw new DAOException("Cannot get product instance");
         }
@@ -101,9 +100,9 @@ public class EntityFactory<T> {
             Order order = new Order();
             while (set.next()) {
                 order.setId(set.getInt("id"));
-                LOGGER.debug("order id = {}", order.getId());
-                order.setDate(set.getTimestamp("order_date"));
+                //Logger.debug("order id = {}", order.getId());
                 order.setAmount(set.getInt("amount"));
+                order.setDate(set.getTimestamp("order_date"));
                 Status status = new Status();
                 status.setName(set.getString("status"));
                 order.setStatus(status);
@@ -111,24 +110,24 @@ public class EntityFactory<T> {
             }
             return order;
         } catch (SQLException e) {
-            LOGGER.error("Cannot get Order by Id");
+            Logger.error("Cannot get order by id");
             e.printStackTrace();
-            throw new DAOException("Cannot get Order instance");
+            throw new DAOException("Cannot get order instance");
         }
     }
 
-    private Subcatalog getSubcategory(ResultSet set) throws DAOException {
+    private Subcatalog getSubcatalog(ResultSet set) throws DAOException {
         try {
-            Subcatalog category = new Subcatalog();
+            Subcatalog subcatalog = new Subcatalog();
             while (set.next()) {
-                category.setName(set.getString("category_name"));
-                category.setId(set.getInt("id"));
+                subcatalog.setId(set.getInt("id"));
+                subcatalog.setName(set.getString("subcatalog_name"));
             }
-            return category;
+            return subcatalog;
         } catch (SQLException e) {
-            LOGGER.error("Cannot get Subcategory by Id");
+            Logger.error("Cannot get subcategory by id");
             e.printStackTrace();
-            throw new DAOException("Cannot get Subcategory instance");
+            throw new DAOException("Cannot get subcategory instance");
         }
     }
 }

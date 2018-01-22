@@ -15,47 +15,39 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DBConnectionPool {
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("database");
-    private final static Logger LOGGER = LogManager.getLogger(DBConnectionPool.class);
-    private static final String URL = BUNDLE.getString("URL");
-    private static final String USERNAME = BUNDLE.getString("USERNAME");
-    private static final String PASSWORD = BUNDLE.getString("PASSWORD");
-    private static final BlockingQueue<Connection> QUEUE = new ArrayBlockingQueue<>(Integer.parseInt(BUNDLE.getString("CONNECTION_LIMIT")));
+
+    private final static Logger logger = LogManager.getLogger(DBConnectionPool.class);
+
+    private static final ResourceBundle Bundle = ResourceBundle.getBundle("database");
+    private static final String URL = Bundle.getString("URL");
+    private static final String USERNAME = Bundle.getString("USERNAME");
+    private static final String PASSWORD = Bundle.getString("PASSWORD");
+    private static final BlockingQueue<Connection> CONNECTION_QUEUE = new ArrayBlockingQueue<>(Integer.parseInt(Bundle.getString("CONNECTION_LIMIT")));
+
     private Server server;
     private Connection connection;
 
     private DBConnectionPool() {
     }
 
-    public void init() throws ConnectionPoolException {
-        try {
-            Driver.load();
-            server = Server.createTcpServer();
-            server.start();
-        } catch (Exception e) {
-            LOGGER.error("Cannot register driver", e);
-            e.printStackTrace();
-            throw new ConnectionPoolException("Cannot initialize driver");
-        }
-    }
 
-    public synchronized Connection getConnection() throws ConnectionPoolException {
+    public Connection getConnection() throws ConnectionPoolException {
         try {
             //if (isDbConnected(connection))
-            if (!QUEUE.isEmpty()) {
-                while (!QUEUE.isEmpty()) {
-                    connection = QUEUE.peek();
+            if (!CONNECTION_QUEUE.isEmpty()) {
+                while (!CONNECTION_QUEUE.isEmpty()) {
+                    connection = CONNECTION_QUEUE.peek();
                     if (connection.isValid(500)) {
                         return connection;
                     }
-
                 }
             } else {
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                freeConnection(connection);
+                if (isFreeConnection(connection)) {
+                    CONNECTION_QUEUE.add(connection);
+                }
                 return getConnection();
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             throw new ConnectionPoolException("Cannot get connection");
@@ -63,39 +55,52 @@ public class DBConnectionPool {
         return connection;
     }
 
-    public synchronized void freeConnection(Connection connection) throws ConnectionPoolException {
+    public boolean isFreeConnection(Connection connection) throws ConnectionPoolException {
         try {
             if (!connection.isClosed()) {
-                QUEUE.add(connection);
+                return true;
             }
         } catch (SQLException e) {
-            throw new ConnectionPoolException("cannot add free connection");
+            throw new ConnectionPoolException("Cannot add free connection");
         }
+        return false;
     }
 
     public void closeConnection() throws ConnectionPoolException {
         try {
-            if (QUEUE.peek() != null) {
-                QUEUE.poll().close();
-                LOGGER.info("Connection closed and removed from queue");
+            if (CONNECTION_QUEUE.peek() != null) {
+                CONNECTION_QUEUE.poll().close();
+                logger.info("Connection closed and removed from queue");
             }
         } catch (SQLException e) {
-            LOGGER.error("cannot close connection");
-            throw new ConnectionPoolException("cannot close connection");
+            logger.error("Cannot close connection");
+            throw new ConnectionPoolException("Cannot close connection");
         }
     }
 
-    public void shutdown() {
+    public void startServer() throws ConnectionPoolException {
+        try {
+            Driver.load();
+            server = Server.createTcpServer();
+            server.start();
+        } catch (Exception e) {
+            logger.error("Cannot register driver", e);
+            e.printStackTrace();
+            throw new ConnectionPoolException("Cannot initialize driver");
+        }
+    }
+
+    public void stopServer() {
         try {
             closeConnection();
         } catch (ConnectionPoolException connectionPoolException) {
-            LOGGER.error("cannot close connection");
+            logger.error("Cannot close connection");
             connectionPoolException.printStackTrace();
         }
         server.stop();
     }
 
-    private static class PoolInstanceHolder {
+    private static class PoolInstanceMaster {
         private static final DBConnectionPool INSTANCE = new DBConnectionPool();
 
     }
@@ -114,6 +119,6 @@ public class DBConnectionPool {
 
 
     public static DBConnectionPool getInstance() {
-        return PoolInstanceHolder.INSTANCE;
+        return PoolInstanceMaster.INSTANCE;
     }
 }
