@@ -45,12 +45,13 @@ public class EntityFactory<T> {
             User user = new User();
             while (set.next()) {  //iteration
                 user.setId(set.getInt("id"));
-                user.setFirstName(set.getString("firstName"));
-                user.setLastName(set.getString("lastName"));
+                user.setFirstName(set.getString("first_name"));
+                user.setLastName(set.getString("last_name"));
                 user.setLogin(set.getString("login"));
                 user.setPassword(set.getString("password"));
-                user.setEmail(set.getString("email"));
+                user.setEmail(set.getString("e-mail"));
                 user.setBanned(set.getBoolean("banned"));
+                user.setRole(set.getString("role_name"));
                 user.setBalance(set.getInt("balance"));
             }
             return user;

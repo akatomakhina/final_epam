@@ -13,6 +13,7 @@ public class User extends Id implements Serializable{
     private String email;
     private boolean banned;
     private double balance;
+    private String role;
     private Basket basket;
     private Discount discount;
 
@@ -89,6 +90,14 @@ public class User extends Id implements Serializable{
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

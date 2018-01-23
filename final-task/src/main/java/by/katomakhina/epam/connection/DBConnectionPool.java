@@ -7,7 +7,6 @@ import org.h2.tools.Server;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -18,11 +17,7 @@ public class DBConnectionPool {
 
     private final static Logger logger = LogManager.getLogger(DBConnectionPool.class);
 
-    private static final ResourceBundle Bundle = ResourceBundle.getBundle("database");
-    private static final String URL = Bundle.getString("URL");
-    private static final String USERNAME = Bundle.getString("USERNAME");
-    private static final String PASSWORD = Bundle.getString("PASSWORD");
-    private static final BlockingQueue<Connection> CONNECTION_QUEUE = new ArrayBlockingQueue<>(Integer.parseInt(Bundle.getString("CONNECTION_LIMIT")));
+    private BlockingQueue<Connection> connection_queue = new ArrayBlockingQueue<>(ConstantConnection.CONNECTION_LIMIT);
 
     private Server server;
     private Connection connection;
@@ -34,17 +29,17 @@ public class DBConnectionPool {
     public Connection getConnection() throws ConnectionPoolException {
         try {
             //if (isDbConnected(connection))
-            if (!CONNECTION_QUEUE.isEmpty()) {
-                while (!CONNECTION_QUEUE.isEmpty()) {
-                    connection = CONNECTION_QUEUE.peek();
+            if (!connection_queue.isEmpty()) {
+                while (!connection_queue.isEmpty()) {
+                    connection = connection_queue.peek();
                     if (connection.isValid(500)) {
                         return connection;
                     }
                 }
             } else {
-                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                connection = DriverManager.getConnection(ConstantConnection.URL, ConstantConnection.USERNAME, ConstantConnection.PASSWORD);
                 if (isFreeConnection(connection)) {
-                    CONNECTION_QUEUE.add(connection);
+                    connection_queue.add(connection);
                 }
                 return getConnection();
             }
@@ -68,8 +63,8 @@ public class DBConnectionPool {
 
     public void closeConnection() throws ConnectionPoolException {
         try {
-            if (CONNECTION_QUEUE.peek() != null) {
-                CONNECTION_QUEUE.poll().close();
+            if (connection_queue.peek() != null) {
+                connection_queue.poll().close();
                 logger.info("Connection closed and removed from queue");
             }
         } catch (SQLException e) {

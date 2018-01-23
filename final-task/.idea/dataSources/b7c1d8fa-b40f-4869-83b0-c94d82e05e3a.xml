@@ -943,8 +943,7 @@
     <table id="238" parent="6" name="product_translate">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="239" parent="6" name="shop_admin">
-      <Comment>Таблица описывает администратора магазина. Характеризуется уникальным идентификактором, логином, паролем, e-mail-ом, датой рождения и датой регистрации администратора в магазине.</Comment>
+    <table id="239" parent="6" name="role">
       <Engine>InnoDB</Engine>
     </table>
     <table id="240" parent="6" name="shop_client">
@@ -1171,65 +1170,30 @@ id_order</ColNames>
 id_language</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="280" parent="239" name="id_admin">
+    <column id="280" parent="239" name="id_role">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="281" parent="239" name="first_name">
+    <column id="281" parent="239" name="name">
       <Position>2</Position>
       <DataType>varchar(70)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="239" name="last_name">
+    <column id="282" parent="239" name="parent">
       <Position>3</Position>
-      <DataType>varchar(70)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="283" parent="239" name="login">
-      <Position>4</Position>
-      <Comment>Уникальный идентификатор-логин.</Comment>
-      <DataType>varchar(40)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="284" parent="239" name="password">
-      <Position>5</Position>
-      <Comment>Пароль администратора.</Comment>
-      <DataType>varchar(100)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="285" parent="239" name="password_salt">
-      <Position>6</Position>
-      <DataType>varchar(100)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="286" parent="239" name="e-mail">
-      <Position>7</Position>
-      <Comment>Адрес почты администратора.</Comment>
-      <DataType>varchar(120)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="287" parent="239" name="id_catalog">
-      <Position>8</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="288" parent="239" name="PRIMARY">
+    <key id="283" parent="239" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>id_admin
-id_catalog</ColNames>
+      <ColNames>id_role</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="289" parent="240" name="id_client">
+    <column id="284" parent="240" name="id_client">
       <Position>1</Position>
       <Comment>Уникальный идентификатор клиента.</Comment>
       <DataType>int(11)|0</DataType>
@@ -1237,66 +1201,66 @@ id_catalog</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="290" parent="240" name="first_name">
+    <column id="285" parent="240" name="first_name">
       <Position>2</Position>
       <DataType>varchar(70)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="291" parent="240" name="last_name">
+    <column id="286" parent="240" name="last_name">
       <Position>3</Position>
       <DataType>varchar(70)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="240" name="login">
+    <column id="287" parent="240" name="login">
       <Position>4</Position>
       <Comment>Уникальный идентификатор - логин.</Comment>
       <DataType>varchar(40)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="240" name="password">
+    <column id="288" parent="240" name="password">
       <Position>5</Position>
       <Comment>Пароль пользователя.</Comment>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="294" parent="240" name="password_salt">
+    <column id="289" parent="240" name="password_salt">
       <Position>6</Position>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="295" parent="240" name="e-mail">
+    <column id="290" parent="240" name="e-mail">
       <Position>7</Position>
       <Comment>Адрес почты пользователя.</Comment>
       <DataType>varchar(120)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="296" parent="240" name="banned">
+    <column id="291" parent="240" name="banned">
       <Position>8</Position>
       <Comment>Статус пользователя в интернет-магазне (забанен или нет).</Comment>
       <DataType>tinyint(1)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="297" parent="240" name="id_admin">
+    <column id="292" parent="240" name="id_role">
       <Position>9</Position>
       <Comment>Уникальный идентификатор администратора.</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="298" parent="240" name="PRIMARY">
+    <key id="293" parent="240" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_client
-id_admin</ColNames>
+id_role</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="299" parent="241" name="id_order">
+    <column id="294" parent="241" name="id_order">
       <Position>1</Position>
       <Comment>Уникальный идентификатор заказа.</Comment>
       <DataType>int(11)|0</DataType>
@@ -1304,26 +1268,26 @@ id_admin</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="300" parent="241" name="id_client">
+    <column id="295" parent="241" name="id_client">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="301" parent="241" name="id_status">
+    <column id="296" parent="241" name="id_status">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="241" name="amount">
+    <column id="297" parent="241" name="amount">
       <Position>4</Position>
       <Comment>Количество заказанных единиц товара.</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="303" parent="241" name="date">
+    <column id="298" parent="241" name="date">
       <Position>5</Position>
       <Comment>Дата и время заказа.</Comment>
       <DataType>timestamp|0</DataType>
@@ -1332,17 +1296,17 @@ id_admin</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <index id="304" parent="241" name="поиск заказа">
+    <index id="299" parent="241" name="поиск заказа">
       <ColNames>id_order</ColNames>
     </index>
-    <key id="305" parent="241" name="PRIMARY">
+    <key id="300" parent="241" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_order
 id_client
 id_status</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="306" parent="242" name="id_product">
+    <column id="301" parent="242" name="id_product">
       <Position>1</Position>
       <Comment>Идентификатор товара.</Comment>
       <DataType>int(11)|0</DataType>
@@ -1350,65 +1314,65 @@ id_status</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="307" parent="242" name="vendor">
+    <column id="302" parent="242" name="vendor">
       <Position>2</Position>
       <Comment>Производитель товара.</Comment>
       <DataType>varchar(100)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="308" parent="242" name="price">
+    <column id="303" parent="242" name="price">
       <Position>3</Position>
       <Comment>Стоимость товара.</Comment>
       <DataType>double|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="309" parent="242" name="id_catalog">
+    <column id="304" parent="242" name="id_catalog">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="310" parent="242" name="PRIMARY">
+    <key id="305" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_product
 id_catalog</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="311" parent="243" name="id_order">
+    <column id="306" parent="243" name="id_status">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="312" parent="243" name="name">
+    <column id="307" parent="243" name="name">
       <Position>2</Position>
       <DataType>varchar(70)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="313" parent="243" name="PRIMARY">
+    <key id="308" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>id_order</ColNames>
+      <ColNames>id_status</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="314" parent="244" name="id_wrehouse">
+    <column id="309" parent="244" name="id_wrehouse">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="315" parent="244" name="id_product">
+    <column id="310" parent="244" name="id_product">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="316" parent="244" name="amount">
+    <column id="311" parent="244" name="amount">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="317" parent="244" name="PRIMARY">
+    <key id="312" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_wrehouse
 id_product</ColNames>

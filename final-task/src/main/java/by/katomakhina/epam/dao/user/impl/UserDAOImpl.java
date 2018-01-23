@@ -1,6 +1,7 @@
 package by.katomakhina.epam.dao.user.impl;
 
 import by.katomakhina.epam.dao.exception.DAOException;
+import by.katomakhina.epam.dao.exception.UserDAOException;
 import by.katomakhina.epam.dao.factory.EntityFactory;
 import by.katomakhina.epam.dao.id.impl.IdDAOImpl;
 import by.katomakhina.epam.dao.user.UserDAO;
@@ -25,8 +26,8 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
     }
 
     @Override
-    public void createUser(User user) throws DAOException {
-        ResourceBundle resource = ResourceBundle.getBundle("resource");
+    public void createUser(User user) throws UserDAOException {
+        ResourceBundle resource = ResourceBundle.getBundle("inquiry");
         String query = resource.getString("CREATE_USER");
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -40,15 +41,15 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
         } catch (SQLException e) {
             Logger.error("Cannot create user in DAO", e);
             e.printStackTrace();
-            throw new DAOException("Cannot create user");
+            throw new UserDAOException("Cannot create user");
 
         }
     }
 
     @Override
-    public void deleteUser(User user) throws DAOException {
+    public void deleteUser(User user) throws UserDAOException {
         try {
-            ResourceBundle resource = ResourceBundle.getBundle("resource");
+            ResourceBundle resource = ResourceBundle.getBundle("inquiry");
             String query = resource.getString("DELETE_USER");
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, user.getId());
@@ -56,15 +57,15 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
         } catch (SQLException e) {
             Logger.error("DAO delete operation is failed", e);
             e.printStackTrace();
-            throw new DAOException("DAO delete operation is failed");
+            throw new UserDAOException("DAO delete operation is failed");
         }
     }
 
     @Override
-    public User findByEmail(String email) throws DAOException {
+    public User findByEmail(String email) throws DAOException {  //!!!!!!!!DAOException
         User user;
         try {
-            ResourceBundle resource = ResourceBundle.getBundle("resource");
+            ResourceBundle resource = ResourceBundle.getBundle("inquiry");
             String query = resource.getString("USER_GET_BY_EMAIL");
             EntityFactory<User> factory = new EntityFactory<>();
             PreparedStatement statement = connection.prepareStatement(query);
@@ -80,7 +81,7 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAllUsers() throws DAOException {
+    public List<User> getAllUsers() throws UserDAOException { //!!!!!!!!!!! вырадение напрямую
         List<User> users = new ArrayList<>();
         String query = getQuery("USER_GET_ALL");
         try {
@@ -90,11 +91,12 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getInt("id"));
-                user.setFirstName(resultSet.getString("firstname"));
-                user.setLastName(resultSet.getString("lastname"));
+                user.setFirstName(resultSet.getString("first_name"));
+                user.setLastName(resultSet.getString("last_name"));
                 user.setLogin(resultSet.getString("login"));
-                user.setEmail(resultSet.getString("email"));
+                user.setEmail(resultSet.getString("e-mail"));
                 //user.setBanned(resultSet.getBoolean("banned"));
+                user.setRole(resultSet.getString("role_name"));
                 users.add(user);
             }
             return users;
@@ -102,12 +104,12 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
         } catch (SQLException e) {
             Logger.error("Cannot get all users", e);
             e.printStackTrace();
-            throw new DAOException("Cannot get all users");
+            throw new UserDAOException("Cannot get all users");
         }
     }
 
     @Override
-    public void updateBalance(int balance, int userId) throws DAOException {
+    public void updateBalance(int balance, int userId) throws UserDAOException {
         try {
             PreparedStatement statement = connection.prepareStatement(getQuery("UPDATE_USER_BALANCE"));
             statement.setInt(1, balance);
@@ -120,12 +122,12 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
         } catch (SQLException e) {
             Logger.error("Cannot update balance");
             e.printStackTrace();
-            throw new DAOException("Cannot update balance");
+            throw new UserDAOException("Cannot update balance");
         }
     }
 
     @Override
-    public int getUserBalance(int userId) throws DAOException {
+    public int getUserBalance(int userId) throws UserDAOException {
         try {
             PreparedStatement statement = connection.prepareStatement(getQuery("GET_USER_BALANCE"));
             statement.setInt(1, userId);
@@ -139,7 +141,7 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
         } catch (SQLException e) {
             Logger.error("Cannot get user balance");
             e.printStackTrace();
-            throw new DAOException("Cannot get user balance");
+            throw new UserDAOException("Cannot get user balance");
         }
     }
 }
