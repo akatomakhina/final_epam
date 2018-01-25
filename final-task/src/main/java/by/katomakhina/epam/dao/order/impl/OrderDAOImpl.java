@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAOImpl extends IdDAOImpl implements OrderDAO {
-    private static final Logger Logger = LogManager.getLogger(EntityFactory.class);
+    private static final Logger Logger = LogManager.getLogger(OrderDAOImpl.class);
 
     public OrderDAOImpl(Connection connection) {
         this.connection = connection;

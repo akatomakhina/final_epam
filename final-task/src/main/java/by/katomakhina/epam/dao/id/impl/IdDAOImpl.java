@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public abstract class IdDAOImpl implements IdDAO {
-    private static final Logger Logger = LogManager.getLogger(EntityFactory.class);
+    private static final Logger Logger = LogManager.getLogger(IdDAOImpl.class);
 
     public Connection connection;
 

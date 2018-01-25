@@ -1,4 +1,4 @@
-package by.katomakhina.epam.dao;
+package by.katomakhina.epam.dao.abstractDAO;
 
 import by.katomakhina.epam.dao.exception.DAOException;
 

@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Product extends Id implements Serializable {
     private String title;
     private String description;
+    private String vendor;
     private double price;
     private int id_catalog;
 
@@ -26,6 +27,14 @@ public class Product extends Id implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
     }
 
     public double getPrice() {
@@ -67,6 +76,7 @@ public class Product extends Id implements Serializable {
         return "Product{" +
                 "title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", vendor='" + vendor + '\'' +
                 ", price=" + price +
                 ", id_catalog=" + id_catalog +
                 '}';

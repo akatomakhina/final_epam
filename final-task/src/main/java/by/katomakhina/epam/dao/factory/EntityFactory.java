@@ -71,9 +71,9 @@ public class EntityFactory<T> {
             }
             return catalog;
         } catch (SQLException e) {
-            Logger.error("Cannot get category by id");
+            Logger.error("Cannot get catalog by id");
             e.printStackTrace();
-            throw new DAOException("Cannot get category by id");
+            throw new DAOException("Cannot get catalog by id");
         }
     }
 
