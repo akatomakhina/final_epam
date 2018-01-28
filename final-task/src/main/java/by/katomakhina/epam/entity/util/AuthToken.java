@@ -1,4 +1,4 @@
-package by.katomakhina.epam.entity;
+package by.katomakhina.epam.entity.util;
 
 import java.io.Serializable;
 

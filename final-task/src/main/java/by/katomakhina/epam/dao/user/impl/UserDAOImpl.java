@@ -83,7 +83,7 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAllUsers() throws UserDAOException { //!!!!!!!!!!! вырадение напрямую
+    public List<User> getAllUsers() throws UserDAOException { //!!!!!!!!!!! выражение напрямую
         List<User> users = new ArrayList<>();
         String query = getQuery("USER_GET_ALL");
         try {
@@ -97,7 +97,6 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
                 user.setLastName(resultSet.getString("last_name"));
                 user.setLogin(resultSet.getString("login"));
                 user.setEmail(resultSet.getString("email"));
-                //user.setBanned(resultSet.getBoolean("banned"));
                 user.setRole(resultSet.getString("role_name"));
                 users.add(user);
             }

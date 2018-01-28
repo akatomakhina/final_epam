@@ -1,4 +1,6 @@
-package by.katomakhina.epam.entity;
+package by.katomakhina.epam.entity.util;
+
+import by.katomakhina.epam.entity.Id;
 
 import java.io.Serializable;
 import java.util.Objects;

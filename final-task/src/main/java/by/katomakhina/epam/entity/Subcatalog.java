@@ -10,12 +10,12 @@ public class Subcatalog extends Id implements Serializable {
     public Subcatalog() {
     }
 
-    //@Override
+    @Override
     public int getId() {
         return id;
     }
 
-    //@Override
+    @Override
     public void setId(int id) {
         this.id = id;
     }

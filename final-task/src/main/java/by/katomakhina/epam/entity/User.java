@@ -1,11 +1,12 @@
 package by.katomakhina.epam.entity;
 
 
+import by.katomakhina.epam.entity.util.Discount;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 public class User extends Id implements Serializable{
-
     private String firstName;
     private String lastName;
     private String login;
@@ -15,7 +16,7 @@ public class User extends Id implements Serializable{
     private double balance;
     private String role;
     private Basket basket;
-    private Discount discount;
+    //private Discount discount;
 
     public User() {
     }
@@ -84,13 +85,13 @@ public class User extends Id implements Serializable{
         this.basket = basket;
     }
 
-    public Discount getDiscount() {
+    /*public Discount getDiscount() {
         return discount;
     }
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
-    }
+    }*/
 
     public String getRole() {
         return role;
@@ -113,14 +114,14 @@ public class User extends Id implements Serializable{
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(basket, user.basket) &&
-                Objects.equals(discount, user.discount);
+                Objects.equals(role, user.role) &&
+                Objects.equals(basket, user.basket);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(super.hashCode(), firstName, lastName, login, password, email, banned, balance, basket, discount);
+        return Objects.hash(super.hashCode(), firstName, lastName, login, password, email, banned, balance, role, basket);
     }
 
     @Override
@@ -133,8 +134,8 @@ public class User extends Id implements Serializable{
                 ", email='" + email + '\'' +
                 ", banned=" + banned +
                 ", balance=" + balance +
+                ", role='" + role + '\'' +
                 ", basket=" + basket +
-                ", discount=" + discount +
                 '}';
     }
 }

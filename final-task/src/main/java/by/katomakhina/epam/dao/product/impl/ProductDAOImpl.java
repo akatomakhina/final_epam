@@ -26,7 +26,7 @@ public class ProductDAOImpl extends IdDAOImpl implements ProductDAO {
     private static final Logger Logger = LogManager.getLogger(ProductDAOImpl.class);
 
     @Override
-    public List<Product> getAllProducts() throws ProductDAOException { //!!!!!!!!!!!!
+    public List<Product> getAllProducts() throws DAOException { //!!!!!!!!!!!!
         List<Product> products = new ArrayList<>();
         String query = getQuery("PRODUCTS_GET_ALL");
         try {
@@ -45,7 +45,7 @@ public class ProductDAOImpl extends IdDAOImpl implements ProductDAO {
         } catch (SQLException e) {
             Logger.error("Cannot get all product");
             e.printStackTrace();
-            throw new ProductDAOException("Cannot get all product");
+            throw new DAOException("Cannot get all product");
         }
         return products;
     }
@@ -108,7 +108,7 @@ public class ProductDAOImpl extends IdDAOImpl implements ProductDAO {
     }
 
     @Override
-    public int updateProduct(Product product) throws ProductDAOException {
+    public int updateProduct(Product product) throws DAOException {
         try {
             PreparedStatement statement = connection.prepareStatement(getQuery("UPDATE_PRODUCT"));
             product.getTitle();
@@ -125,14 +125,14 @@ public class ProductDAOImpl extends IdDAOImpl implements ProductDAO {
         } catch (SQLException e) {
             Logger.error("Cannot update product");
             e.printStackTrace();
-            throw new ProductDAOException("Cannot update product");
+            throw new DAOException("Cannot update product");
         }
     }
 
     @Override
-    public List<Product> getSubcategoryProduct(int id) throws ProductDAOException {
+    public List<Product> getSubcatalogProduct(int id) throws ProductDAOException {
         try {
-            PreparedStatement statement = connection.prepareStatement(getQuery("GET_CATEGORY_PRODUCTS"));
+            PreparedStatement statement = connection.prepareStatement(getQuery("GET_CATALOG_PRODUCTS"));
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             List<Product> list = new ArrayList<>();
@@ -141,7 +141,6 @@ public class ProductDAOImpl extends IdDAOImpl implements ProductDAO {
                 product.setId(resultSet.getInt("id"));
                 product.setTitle(resultSet.getString("title"));
                 product.setDescription(resultSet.getString("description"));
-                product.setVendor(resultSet.getString("vendor"));
                 product.setPrice(resultSet.getInt("price"));
                 product.setId_catalog(resultSet.getInt("id_catalog"));
                 list.add(product);
@@ -150,9 +149,9 @@ public class ProductDAOImpl extends IdDAOImpl implements ProductDAO {
             return list;
 
         } catch (SQLException e) {
-            Logger.error("Cannot get Product by subcategory id");
+            Logger.error("Cannot get Product by subcatalog id");
             e.printStackTrace();
-            throw new ProductDAOException("Cannot get Product by subcategory id");
+            throw new ProductDAOException("Cannot get Product by subcatalog id");
         }
     }
 }

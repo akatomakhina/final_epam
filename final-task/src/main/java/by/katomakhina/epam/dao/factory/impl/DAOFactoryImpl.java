@@ -2,6 +2,7 @@ package by.katomakhina.epam.dao.factory.impl;
 
 import by.katomakhina.epam.connection.ConnectionPoolException;
 import by.katomakhina.epam.connection.DBConnectionPool;
+import by.katomakhina.epam.dao.abstractDAO.AbstractDAOFactory;
 import by.katomakhina.epam.dao.exception.DAOException;
 import by.katomakhina.epam.dao.factory.DAOFactory;
 import by.katomakhina.epam.dao.id.impl.IdDAOImpl;
@@ -14,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DAOFactoryImpl implements DAOFactory {
+public class DAOFactoryImpl extends AbstractDAOFactory implements DAOFactory{
 
     private static final DBConnectionPool connectionPool = DBConnectionPool.getInstance();
     private static final Logger Logger = LogManager.getLogger(DAOFactoryImpl.class);
