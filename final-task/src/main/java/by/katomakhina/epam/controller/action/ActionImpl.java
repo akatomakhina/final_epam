@@ -1,30 +1,23 @@
 package by.katomakhina.epam.controller.action;
 
+import by.katomakhina.epam.controller.action.constant.ActionConstant;
+import by.katomakhina.epam.controller.action.entity.View;
 import by.katomakhina.epam.entity.ProductItem;
-import by.katomakhina.epam.service.catalog.impl.CatalogServiceImpl;
 import by.katomakhina.epam.service.exception.ServiceException;
-import by.katomakhina.epam.service.order.impl.OrderServiceImpl;
-import by.katomakhina.epam.service.product.impl.ProductServiceImpl;
-import by.katomakhina.epam.service.user.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
 public abstract class ActionImpl implements Action {
 
-    private static final Logger Logger = LogManager.getLogger(Action.class);
+    private static final Logger Logger = LogManager.getLogger(ActionImpl.class);
 
-    public static final UserServiceImpl USER_SERVICE = new UserServiceImpl();
-    public static final ProductServiceImpl PRODUCT_SERVICE = new ProductServiceImpl();
-    public static final OrderServiceImpl ORDER_SERVICE = new OrderServiceImpl();
-    public static final CatalogServiceImpl CATEGORY_SERVICE = new CatalogServiceImpl();
-
-    public static final boolean REDIRECT = true;
-    public static final View REDIRECT_TO_HOME = new View("home-page", REDIRECT);
+    public abstract View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException;
 
     @Override
     public boolean isAdmin(HttpServletRequest request) {
@@ -72,14 +65,14 @@ public abstract class ActionImpl implements Action {
         request.getSession().setAttribute("productReference", getReferrerName(request));
         int totalAmount = 0;
         try {
-            totalAmount = ORDER_SERVICE.getTotalAmount(itemList);
+            totalAmount = ActionConstant.ORDER_SERVICE.getTotalAmount(itemList);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
         request.getSession().setAttribute("orderTotalAmount", totalAmount);
         int userBalance = 0;
         try {
-            userBalance = USER_SERVICE.getUserBalance(userId);
+            userBalance = ActionConstant.USER_SERVICE.getUserBalance(userId);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

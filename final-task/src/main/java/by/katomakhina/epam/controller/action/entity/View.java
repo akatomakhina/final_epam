@@ -1,4 +1,4 @@
-package by.katomakhina.epam.controller.action;
+package by.katomakhina.epam.controller.action.entity;
 
 import java.util.Objects;
 
