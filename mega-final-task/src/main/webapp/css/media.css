@@ -1,0 +1,36 @@
+@media screen and (max-width: 980px) {
+   .wrapper {
+      width: 95%;
+   }
+   .menu__container {
+      width: 100%;
+      float: left;
+   }
+   .header {
+      height: auto;
+   }
+
+}
+
+@media screen and (max-width: 650px) {
+   .header {
+      height: auto;
+   }
+   .header__logo {
+      margin: 15px 100px 5px 0;
+      position: static;
+   }
+   .free-registration {
+      width: auto;
+      float: none;
+      margin: 20px 0;
+   }
+   .menu {
+      width: 100%;
+      float: none;
+      margin: 0;
+   }
+   .header__right{
+      padding-right: 30px;
+   }
+}
