@@ -438,19 +438,18 @@ body{
 /*CATALOG*/
 /*Table*/
 .catalog-table{
-	height: 1080px;
 }
 .table-fill {
 	background: white;
 	border-radius:3px;
 	border-collapse: collapse;
-	height: 320px;
 	margin-top: 60px;
 	max-width: 670px;
 	padding:5px;
 	width: 100%;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 	animation: float 5s infinite;
+	margin-bottom: 12%;
 }
 
 .table-fill > thead> tr> th {
@@ -522,7 +521,7 @@ body{
 	text-align:left;
 	vertical-align:middle;
 	font-weight:300;
-	font-size:18px;
+	font-size: 20px;
 	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
 	border-right: 1px solid #D0D2DD;
 }
@@ -553,6 +552,10 @@ body{
 
 .table-fill > tbody> tr> td.text-right {
 	text-align: right;
+}
+.table-fill> tbody> tr> td>a {
+	color: #1F2323;
+	text-decoration: none;
 }
 
 /*CATALOG INFO*/
@@ -604,6 +607,16 @@ body{
 	font-family: RobotoCondensed-Regular;
 }
 
+.catalog__delete__button{
+	background: #4D4F56;
+	height: 38px;
+	width: 80px;
+	color: white;
+	font-size: 16px;
+	border-radius: 3px;
+	border-width: 0;
+}
+
 .subcatalog{
 	float: right;
 	height: 1080px;
@@ -644,7 +657,6 @@ body{
 
 /*ORDERS*/
 .orders-table{
-	height: 880px;
 }
 .order-title{
 	margin: auto;
@@ -659,13 +671,13 @@ body{
 	background: white;
 	border-radius:3px;
 	border-collapse: collapse;
-	height: 320px;
 	margin-top: 60px;
 	max-width: 600px;
 	padding:5px;
 	width: 100%;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 	animation: float 5s infinite;
+	margin-bottom: 16%;
 }
 
 .order-table-fill > thead> tr> th {
@@ -769,18 +781,21 @@ body{
 .order-table-fill > tbody> tr> td.text-right {
 	text-align: right;
 }
+.order-table-fill> tbody> tr> td>a {
+	color: #1F2323;
+	text-decoration: none;
+}
 
 
 
 /*BASKET*/
 .basket-table{
-	height: 1180px;
+	/* height: 1080px; */
 }
 .basket-table-fill {
 	background: white;
 	border-radius:3px;
 	border-collapse: collapse;
-	height: 320px;
 	margin-top: 60px;
 	max-width: 960px;
 	padding:5px;
@@ -816,7 +831,7 @@ body{
 	border-top: 1px solid #D0D2DD;
 	border-bottom-: 1px solid #D0D2DD;
 	color: #1F2323; /*цвет текста в строчках*/
-	font-size: 16px;
+	/* font-size: 16px; */
 	font-family: Oswald-Medium;
 	font-weight:normal;
 	text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
@@ -854,11 +869,11 @@ body{
 
 .basket-table-fill > tbody> tr> td {
 	background:#FFFFFF;
-	padding: 19px 10px 19px 30px;
+	padding: 16px 10px 16px 30px;
 	text-align:left;
 	vertical-align:middle;
 	font-weight:300;
-	font-size:18px;
+	font-size: 20px;
 	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
 	border-right: 1px solid #D0D2DD;
 }
@@ -919,16 +934,17 @@ body{
 	font-family: RobotoCondensed-Regular;
 }
 .basket__total-amount{
-	margin-top: 8%;
+	margin-top: 12%;
 	font-size: 26px;
 	padding: 15px 0 6px 0;
 	color: #1F2323;
 	font-family: RobotoCondensed-Regular;
 }
 .basket__buy-all{
-	margin-top: 30px;
+	margin-top: 3%;
+	margin-bottom: 12%;
 }
-.basket__buy-all__button{
+/*.basket__buy-all__button{
 	background: #db473f;
 	height: 45px;
 	width: 130px;
@@ -936,13 +952,14 @@ body{
 	font-size: 21px;
 	border-radius: 5px;
 	border-width: 0;
-}
-/* .basket__buy-all>p >a{
+}*/
+.basket__buy-all>p >a{
 	text-decoration: none;
 	color: #1F2323;
-	font-family: RobotoCondensed-Regular;
-	font-size: 22px;
-} */
+	font-family: Oswald-Medium;
+	font-size: 24px;
+}
+
 
 
 
@@ -952,7 +969,13 @@ body{
 	text-align: center;
 	margin: 30px 0;
 }
-.registration__button__reference{
+.registration__reference__ref{
+	text-decoration: none;
+	color: #1F2323;
+	font-family: RobotoCondensed-Regular;
+	font-size: 24px;
+}
+/* .registration__button__reference{
 	background: #db473f;
 	height: 40px;
 	width: 145px;
@@ -961,7 +984,7 @@ body{
 	border-radius: 2px;
 	border-width: 0;
 	margin-top: 10px;
-}
+} */
 
 
 
@@ -1086,7 +1109,6 @@ body{
 
 /*ADMIN-PAGE*/
 .admin-user-table{
-	height: 920px;
 }
 .admin-user-title{
 	font-family: Oswald-Medium;
@@ -1105,6 +1127,7 @@ body{
 	width: 100%;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 	animation: float 5s infinite;
+	margin-bottom: 10%;
 }
 
 .admin-table-fill > thead> tr> th {
@@ -1172,11 +1195,11 @@ body{
 
 .admin-table-fill > tbody> tr> td {
 	background:#FFFFFF;
-	padding: 16px 10px 16px 30px;
+	padding: 19px 10px 19px 30px;
 	text-align:left;
 	vertical-align:middle;
 	font-weight:300;
-	font-size: 19px;
+	font-size: 20px;
 	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
 	border-right: 1px solid #D0D2DD;
 }
@@ -1217,18 +1240,17 @@ body{
 
 /*ORDER--MANAGER*/
 .order-manager-table{
-	height: 980px;
 }
 .order-manager-table-fill {
 	background: white;
 	border-radius:3px;
 	border-collapse: collapse;
-	height: 320px;
 	margin-top: 60px;
 	padding:5px;
 	width: 100%;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 	animation: float 5s infinite;
+	margin-bottom: 12%;
 }
 
 .order-manager-table-fill > thead> tr> th {
@@ -1296,11 +1318,11 @@ body{
 
 .order-manager-table-fill > tbody> tr> td {
 	background:#FFFFFF;
-	padding: 11px 10px 11px 30px;
+	padding: 19px 10px 19px 30px;
 	text-align:left;
 	vertical-align:middle;
 	font-weight:300;
-	font-size:18px;
+	font-size: 20px;
 	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
 	border-right: 1px solid #D0D2DD;
 }
@@ -1357,24 +1379,30 @@ body{
 	text-decoration: none;
 	color: #1F2323;
 }
+.label-success{
+	margin-top: 8%;
+	font-size: 26px;
+	padding: 15px 0 6px 0;
+	color: #1F2323;
+	font-family: RobotoCondensed-Regular;
+}
 
 
 
 /*CHEK*/
 .chek-table{
-	height: 980px;
 }
 .chek-table-fill {
 	background: white;
 	border-radius:3px;
 	border-collapse: collapse;
-	height: 320px;
 	margin-top: 30px;
 	max-width: 600px;
 	padding:5px;
 	width: 100%;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 	animation: float 5s infinite;
+	margin-bottom: 10%;
 }
 
 .chek-table-fill > thead> tr> th {
@@ -1442,11 +1470,11 @@ body{
 
 .chek-table-fill > tbody> tr> td {
 	background:#FFFFFF;
-	padding: 10px 10px 10px 30px;
+	padding: 19px 10px 22px 30px;
 	text-align:left;
 	vertical-align:middle;
 	font-weight:300;
-	font-size:18px;
+	font-size: 20px;
 	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
 	border-right: 1px solid #D0D2DD;
 }
