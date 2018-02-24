@@ -25,25 +25,27 @@ public class PaymentAction extends ActionImpl {
         View view;
         View redirectToCheck = new View("check", ActionConstant.REDIRECT);
         if (isAuthorized(request) && (request.getSession().getAttribute("itemList") != null)) {
-            int userId = (int) request.getSession().getAttribute("userId");
-            List<ProductItem> itemList = (ArrayList<ProductItem>) request.getSession().getAttribute("itemList");
+
+            int idUser = (int) request.getSession().getAttribute("userId");
+            List<ProductItem> productItemList = (ArrayList<ProductItem>) request.getSession().getAttribute("itemList");
+
             PaymentValidator paymentValidator = new PaymentValidator();
             Order order;
             if (request.getParameter("byBalance") != null) {
-                order = ActionConstant.ORDER_SERVICE.createOrder(itemList, userId, ActionConstant.PAY_BY_BALANCE);
+                order = ActionConstant.ORDER_SERVICE.createOrder(productItemList, idUser, ActionConstant.PAY_BY_BALANCE);
                 successTemplate(request, order);
                 return redirectToCheck;
             }
             if (paymentValidator.execute(request)) {
-                order = ActionConstant.ORDER_SERVICE.createOrder(itemList, userId, ActionConstant.PAY_BY_CARD);
+                order = ActionConstant.ORDER_SERVICE.createOrder(productItemList, idUser, ActionConstant.PAY_BY_CARD);
                 successTemplate(request, order);
                 view = redirectToCheck;
             } else {
-                Logger.info("cannot process payment");
+                Logger.info("Cannot process payment");
                 view = new View("payment");
             }
         } else {
-            Logger.info("attempt to obtain unauthorized access");
+            Logger.info("Attempt to obtain unauthorized access");
             view = ActionConstant.REDIRECT_TO_HOME;
         }
         return view;
@@ -52,6 +54,6 @@ public class PaymentAction extends ActionImpl {
     private void successTemplate(HttpServletRequest request, Order order) {
         request.getSession().setAttribute("itemList", null);
         request.getSession().setAttribute("orderID", order.getId());
-        Logger.info("payment successful");
+        Logger.info("Payment successful");
     }
 }

@@ -28,11 +28,11 @@ public class CatalogHandler {
 
         String sortOrder = (String) request.getSession().getAttribute("sortOrder");
 
-        if (request.getParameter("catalog") != null) {
-            int id = Integer.parseInt(request.getParameter("catalog"));
-            Subcatalog subcatalog = catalogService.getSubcatalogById(id);
-            request.setAttribute("subcatalog", subcatalog.getName());
-            productList = productService.getSubcatalogProduct(id);
+        if (request.getParameter("category") != null) {
+            int idCatalog = Integer.parseInt(request.getParameter("category"));
+            Subcatalog subcatalog = catalogService.getSubcatalogById(idCatalog);
+            request.setAttribute("subcategory", subcatalog.getName());
+            productList = productService.getSubcatalogProduct(idCatalog);
         } else {
             productList = productService.getAllProduct();
         }
@@ -89,7 +89,8 @@ public class CatalogHandler {
         List<Product> listToReturn = new ArrayList<>();
         for (Product product : list) {
             if (product.getTitle().toLowerCase().contains(string.toLowerCase())
-                    || product.getDescription().toLowerCase().contains(string.toLowerCase())) {
+                    || product.getDescription().toLowerCase().contains(string.toLowerCase())
+                    || product.getVendor().toLowerCase().contains(string.toLowerCase())) {
                 listToReturn.add(product);
             }
         }

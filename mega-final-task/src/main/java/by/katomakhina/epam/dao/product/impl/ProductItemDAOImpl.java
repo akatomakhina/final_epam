@@ -32,8 +32,8 @@ public class ProductItemDAOImpl extends IdDAOImpl implements ProductItemDAO {
     public List<ProductItem> getAllBasketByUserId(int idUser) throws DAOException {
         try {
             List<ProductItem> itemList = new ArrayList<>();
-            DAOFactoryImpl factoryJdbc = new DAOFactoryImpl();
-            ProductDAOImpl ProductDAO = factoryJdbc.getDAO(ProductDAOImpl.class);
+            DAOFactoryImpl factory = new DAOFactoryImpl();
+            ProductDAOImpl productDAO = factory.getDAO(ProductDAOImpl.class);
             String query = getQuery("GET_BASKET_BY_USER");
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idUser);
@@ -43,7 +43,7 @@ public class ProductItemDAOImpl extends IdDAOImpl implements ProductItemDAO {
                 item.setId(resultSet.getInt("id_basket"));
 
                 int idProduct = resultSet.getInt("id_product");
-                item.setProduct((Product) ProductDAO.findById(idProduct, Product.class)); //!!!!!!!!!!!!(кастование)
+                item.setProduct((Product) productDAO.findById(idProduct, Product.class)); //!!!!!!!!!!!!(кастование)
 
                 item.setAmount(resultSet.getInt("amount"));
                 itemList.add(item);

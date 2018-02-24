@@ -19,12 +19,12 @@ public class DeleteUserAction extends ActionImpl {
 
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, ProductItemDAOException, DAOException {
-        UserServiceImpl service = new UserServiceImpl();
+        UserServiceImpl userService = new UserServiceImpl();
         int id = Integer.parseInt(request.getParameter("id"));
         View redirectToAdminPage = new View("admin-page", ActionConstant.REDIRECT);
-        User user = service.getUserById(id);
+        User user = userService.getUserById(id);
         if (user.getRole().equals("User")) {
-            service.deleteUser(id);
+            userService.deleteUser(id);
             request.getSession().setAttribute("successDelete", "User delete successful");
             Logger.info("Username: " + user.getFirstName() + "User delete successful");
         } else {

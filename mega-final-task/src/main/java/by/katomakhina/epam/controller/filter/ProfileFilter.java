@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "ProfileFilter", urlPatterns = "/do/profile")
+@WebFilter(filterName = "ProfileFilter", urlPatterns = "/nastichka/profile")
 public class ProfileFilter implements Filter {
 
     private static final Logger Logger = LogManager.getLogger(ProfileFilter.class);
@@ -30,7 +30,7 @@ public class ProfileFilter implements Filter {
     }
 
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String param = request.getParameter("id");
+        String param = request.getParameter("idUser");
         if (param == null) {
             chain.doFilter(request, response);
             Logger.info("filtered successfully");

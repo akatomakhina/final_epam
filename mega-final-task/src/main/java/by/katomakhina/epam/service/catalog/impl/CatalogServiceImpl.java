@@ -23,12 +23,12 @@ public class CatalogServiceImpl implements CatalogService {
         try {
             AbstractDAOFactory factory = new DAOFactoryImpl();
             CatalogDAOImpl catalogDAO = factory.getDAO(CatalogDAOImpl.class);
-            SubcatalogDAOImpl subCategoryDAO = factory.getDAO(SubcatalogDAOImpl.class);
-            List<Catalog> catalogs = catalogDAO.getAllCategories();
-            for (Catalog catalog : catalogs) {
-                catalog.setSubCatalog(subCategoryDAO.getGetSubcategoriesByParent(catalog.getId()));
+            SubcatalogDAOImpl subCatalogDAO = factory.getDAO(SubcatalogDAOImpl.class);
+            List<Catalog> catalogList = catalogDAO.getAllCatalogs();
+            for (Catalog catalog : catalogList) {
+                catalog.setSubCatalog(subCatalogDAO.getGetSubcategoriesByParent(catalog.getId()));
             }
-            return catalogs;
+            return catalogList;
         } catch (DAOException e) {
             Logger.error("Cannot get catalog tree", e);
             e.printStackTrace();
@@ -47,9 +47,9 @@ public class CatalogServiceImpl implements CatalogService {
             SubcatalogDAOImpl subCatalogDAO = factory.getDAO(SubcatalogDAOImpl.class);
             return (Subcatalog) subCatalogDAO.findById(id, Subcatalog.class); //!!!!!!!!CAST
         } catch (DAOException e) {
-            Logger.error("Cannot ges subcatalog by id");
+            Logger.error("Cannot get subcatalog by id");
             e.printStackTrace();
-            throw new ServiceException("Cannot ges subcatalog by id");
+            throw new ServiceException("Cannot get subcatalog by id");
         }
     }
 }

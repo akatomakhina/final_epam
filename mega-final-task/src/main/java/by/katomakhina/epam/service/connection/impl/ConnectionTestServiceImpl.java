@@ -15,9 +15,9 @@ public class ConnectionTestServiceImpl implements ConnectionTestService {
     @Override
     public boolean isConnected() throws ServiceException {
         try {
-            DAOFactoryImpl factoryJdbc = new DAOFactoryImpl();
-            ConnectionDAOImpl daoJdbc = factoryJdbc.getDAO(ConnectionDAOImpl.class);
-            return daoJdbc.isConnected();
+            DAOFactoryImpl factory = new DAOFactoryImpl();
+            ConnectionDAOImpl connectionDAO = factory.getDAO(ConnectionDAOImpl.class);
+            return connectionDAO.isConnected();
         } catch (DAOException e) {
             Logger.error("Cannot find out is connection with database exist", e);
             e.printStackTrace();
@@ -28,9 +28,9 @@ public class ConnectionTestServiceImpl implements ConnectionTestService {
     @Override
     public boolean isBasePopulated() throws ServiceException {
         try {
-            DAOFactoryImpl factoryJdbc = new DAOFactoryImpl();
-            ConnectionDAOImpl daoJdbc = factoryJdbc.getDAO(ConnectionDAOImpl.class);
-            return daoJdbc.isBasePopulated();
+            DAOFactoryImpl factory = new DAOFactoryImpl();
+            ConnectionDAOImpl connectionDAO = factory.getDAO(ConnectionDAOImpl.class);
+            return connectionDAO.isBasePopulated();
         } catch (DAOException e) {
             Logger.error("Cannot find out is connection exist");
             e.printStackTrace();
@@ -41,9 +41,9 @@ public class ConnectionTestServiceImpl implements ConnectionTestService {
     @Override
     public void populateDatabase() throws ServiceException {
         try {
-            DAOFactoryImpl factoryJdbc = new DAOFactoryImpl();
-            ConnectionDAOImpl daoJdbc = factoryJdbc.getDAO(ConnectionDAOImpl.class);
-            daoJdbc.populateDatabase();
+            DAOFactoryImpl factory = new DAOFactoryImpl();
+            ConnectionDAOImpl connectionDAO = factory.getDAO(ConnectionDAOImpl.class);
+            connectionDAO.populateDatabase();
         } catch (DAOException e) {
             Logger.error("Cannot populate database");
             e.printStackTrace();

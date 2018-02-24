@@ -18,27 +18,27 @@ public class AddProductAction extends ActionImpl {
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         View redirectToReferrer = new View(getReferrerName(request), ActionConstant.REDIRECT);
-        int userId = (int) request.getSession().getAttribute("idUser");
-        int ProductId = Integer.parseInt(request.getParameter("idProduct"));
-        int addQuantity;
+        int idUser = (int) request.getSession().getAttribute("userId");
+        int idProduct = Integer.parseInt(request.getParameter("productId"));
+        int addAmount;
         try {
-            addQuantity = Integer.parseInt(request.getParameter("addAmount"));
+            addAmount = Integer.parseInt(request.getParameter("addQuantity"));
         } catch (NumberFormatException e) {
-            request.getSession().setAttribute("invalidAmountAdd", "you should set number less than quantity in warehouse. But avoid using negative numbers and zero");
-            Logger.warn("cannot add item to cart because of non digit chars in 'amount' form");
+            request.getSession().setAttribute("invalidQuantityAdd", "You should set number less than amount in warehouse. But avoid using negative numbers and zero");
+            Logger.warn("Cannot add item to basket because of non digit chars in 'amount' form");
             return redirectToReferrer;
         }
         HttpSession session = request.getSession();
         Logger.info(getReferrerName(request));
         ProductServiceImpl service = new ProductServiceImpl();
-        if (service.isAmountValid(addQuantity, ProductId)) {
-            service.addProductToCart(userId, ProductId, addQuantity);
+        if (service.isAmountValid(addAmount, idProduct)) {
+            service.addProductToBasket(idUser, idProduct, addAmount);
             session.setAttribute("addMessage", "Product added successful");
-            Logger.info("product item added to the basket");
+            Logger.info("Product item added to the basket");
 
         } else {
-            session.setAttribute("invalidAmountAdd", "you should set number less than amount in warehouse. But avoid using negative numbers and zero");
-            Logger.warn("cannot add item to cart because of invalid amount");
+            session.setAttribute("invalidAmountAdd", "You should set number less than amount in warehouse. But avoid using negative numbers and zero");
+            Logger.warn("Cannot add item to basket because of invalid amount");
 
         }
         return redirectToReferrer;

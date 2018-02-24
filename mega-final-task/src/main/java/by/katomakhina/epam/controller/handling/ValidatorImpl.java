@@ -34,6 +34,16 @@ public abstract class ValidatorImpl implements Validator {
     }
 
     @Override
+    public boolean isDouble(HttpServletRequest request, String key) {
+        try {
+            Double.parseDouble(request.getParameter(key));
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public void sendMessagesByRequestAttribute(List<String> messages, HttpServletRequest request) {
         for (String key : messages) {
             request.setAttribute(key, "msg");

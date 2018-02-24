@@ -15,18 +15,18 @@ public class ActionFactory {
         actions = new HashMap<>();
         actions.put("POST/register", new RegisterAction());
         actions.put("GET/register", new ShowPageAction("register"));
-        /*actions.put("GET/login-page", new ShowLoginPage());
+        actions.put("GET/login-page", new ShowLoginPage());
         actions.put("GET/products", new ShowCatalogAction());
         actions.put("GET/product-page", new ShowProductAction());
         actions.put("POST/buy-product", new BuyProductAction());
         actions.put("POST/add-product", new AddProductAction());
         actions.put("POST/login", new LoginAction());
-        actions.put("GET/cart", new ShowCartAction());
+        actions.put("GET/cart", new ShowBasketAction());
         actions.put("GET/profile", new ShowProfileAction());
         actions.put("GET/admin-page", new ShowAdminPageAction());
         actions.put("GET/delete-user", new DeleteUserAction());
-        actions.put("GET/remove-from-cart", new RemoveFromCartAction());
-        actions.put("GET/buy-cart", new BuyCartAction());
+        actions.put("GET/remove-from-cart", new RemoveFromBasketAction());
+        actions.put("GET/buy-cart", new BuyBasketAction());
         actions.put("GET/example", new ShowPageAction("example"));
         actions.put("GET/home-page", new ShowPageAction("home-page"));
         actions.put("GET/payment", new ShowPaymentPage());
@@ -43,7 +43,7 @@ public class ActionFactory {
         actions.put("POST/change-status", new SetStatusAction());
         actions.put("GET/change-order", new ChangeSortOrderAction());
         actions.put("POST/delete-product", new DeleteFromCatalogAction());
-        actions.put("POST/update-cart", new EditCartAction());*/
+        actions.put("POST/update-cart", new EditBasketAction());
     }
 
     public Action getAction(HttpServletRequest request) {

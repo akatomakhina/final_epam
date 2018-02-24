@@ -20,7 +20,7 @@ public class UpdateBalanceAction extends ActionImpl {
         if (isUser(request)) {
             if (isInteger(request, "balance")) {
                 int balance = Integer.parseInt(request.getParameter("balance"));
-                int idUser = (int) request.getSession().getAttribute("idUser");
+                int idUser = (int) request.getSession().getAttribute("userId");
                 if (balance > 0 && balance < 1000) {
                     ActionConstant.USER_SERVICE.updateBalance(balance, idUser);
                     view = redirectToReferrer;

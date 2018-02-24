@@ -27,11 +27,11 @@ public class ShowOrderManager extends ActionImpl {
             if (!orders.isEmpty()) {
                 PaginationHandler<Order> paginationHandler = new PaginationHandler<>(orders, PAGE_VOLUME);
                 int pageNumber = paginationHandler.getPageNumber(request);
-                List<Order> fragment = paginationHandler.getPageContent(pageNumber);
+                List<Order> ordersList = paginationHandler.getPageContent(pageNumber);
                 List<Integer> pagesList = paginationHandler.getPageNumbers();
                 List<Status> statusList = ActionConstant.ORDER_SERVICE.getStatuses();
                 request.setAttribute("statusList", statusList);
-                request.setAttribute("orderList", fragment);
+                request.setAttribute("orderList", ordersList);
                 request.setAttribute("pagesList", pagesList);
                 request.setAttribute("successUpdate", "msg");
                 Logger.info("order-manager showed successfully");

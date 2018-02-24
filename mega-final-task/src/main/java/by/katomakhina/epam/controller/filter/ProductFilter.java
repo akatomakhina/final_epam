@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebFilter(filterName = "ProductFilter", urlPatterns = "/do/product-page")
+@WebFilter(filterName = "ProductFilter", urlPatterns = "/nastichka/product-page")
 public class ProductFilter implements Filter {
     private static final Logger Logger = LogManager.getLogger(ProductFilter.class);
 
@@ -33,8 +33,8 @@ public class ProductFilter implements Filter {
         String param = request.getParameter("id");
         try {
             ProductServiceImpl productService = new ProductServiceImpl();
-            int id = Integer.parseInt(param);
-            Product product = productService.findById(id);
+            int idProduct = Integer.parseInt(param);
+            Product product = productService.findById(idProduct);
 
             if (product.getId() == 0) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");

@@ -44,7 +44,7 @@ public abstract class ActionImpl implements Action {
 
     @Override
     public String getReferrerName(HttpServletRequest request) {
-        String name = request.getHeader("referer").substring(25);
+        String name = request.getHeader("referrer").substring(25);
         name = name.replace(".jsp", "");
         Logger.info("referrer name: " + name);
         return name;
@@ -61,19 +61,15 @@ public abstract class ActionImpl implements Action {
     }
 
     @Override
-    public void buySuccessTemplate(HttpServletRequest request, List<ProductItem> itemList, int userId) {
-        request.getSession().setAttribute("itemList", itemList);
+    public void buySuccessTemplate(HttpServletRequest request, List<ProductItem> productItemList, int idUser) {
+        request.getSession().setAttribute("itemList", productItemList);
         request.getSession().setAttribute("productReference", getReferrerName(request));
-        int totalAmount = 0;
-        try {
-            totalAmount = ActionConstant.ORDER_SERVICE.getTotalAmount(itemList);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        double totalAmount = 0;
+        totalAmount = ActionConstant.ORDER_SERVICE.getTotalAmount(productItemList);
         request.getSession().setAttribute("orderTotalAmount", totalAmount);
         double userBalance = 0;
         try {
-            userBalance =  ActionConstant.USER_SERVICE.getUserBalance(userId);
+            userBalance =  ActionConstant.USER_SERVICE.getUserBalance(idUser);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

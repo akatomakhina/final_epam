@@ -22,13 +22,13 @@ public class ShowProfileOrdersAction extends ActionImpl {
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        Integer userId;
-        if (session != null && session.getAttribute("idUser") != null) {
-            userId = (int) session.getAttribute("idUser");
+        Integer idUser;
+        if (session != null && session.getAttribute("userId") != null) {
+            idUser = (int) session.getAttribute("userId");
         } else {
             return new View("home-page", true);
         }
-        List<Order> orderList = ActionConstant.ORDER_SERVICE.getAllUserOrders(userId);
+        List<Order> orderList = ActionConstant.ORDER_SERVICE.getAllUserOrders(idUser);
         if (!orderList.isEmpty()) {
             PaginationHandler<Order> paginationHandler = new PaginationHandler<>(orderList, PAGE_VOLUME);
             int pageNumber = paginationHandler.getPageNumber(request);

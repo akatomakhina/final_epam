@@ -21,13 +21,15 @@ public class ShowBasketAction extends ActionImpl {
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         View view;
         if (isUser(request)) {
-            Integer userId = (int) request.getSession().getAttribute("idUser");
-            List<ProductItem> items = ActionConstant.PRODUCT_SERVICE.getBasketByUserId(userId);
-            int totalAmount = ActionConstant.ORDER_SERVICE.getTotalAmount(items);
-            Basket basket = ActionConstant.PRODUCT_SERVICE.createBasket(items);
+            Integer idUser = (int) request.getSession().getAttribute("idUser");
+            List<ProductItem> productItem = ActionConstant.PRODUCT_SERVICE.getBasketByUserId(idUser);
+
+            double totalAmount = ActionConstant.ORDER_SERVICE.getTotalAmount(productItem);
+
+            Basket basket = ActionConstant.PRODUCT_SERVICE.createBasket(productItem);
             request.setAttribute("items", basket.getBasketItems());
             request.setAttribute("totalAmount", totalAmount);
-            if (items.isEmpty()) {
+            if (productItem.isEmpty()) {
                 request.setAttribute("emptyMessage", "There are no items in the basket");
                 Logger.info("There are no items in the basket");
             }

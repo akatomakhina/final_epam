@@ -20,23 +20,23 @@ public class ShowCheckAction extends ActionImpl {
 
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DAOException {
-        int id;
+        int idOrder;
         try {
-            id = Integer.parseInt(request.getParameter("id"));
+            idOrder = Integer.parseInt(request.getParameter("id"));
         } catch (NumberFormatException e) {
             if (request.getAttribute("id") != null) {
-                id = (int) request.getAttribute("id");
+                idOrder = (int) request.getAttribute("id");
             } else return ActionConstant.REDIRECT_TO_HOME;
         }
-        Order order = ActionConstant.ORDER_SERVICE.getOrderById(id);
+        Order order = ActionConstant.ORDER_SERVICE.getOrderById(idOrder);
         if (isUser(request) && order.getIdUser() != (int) request.getSession(false).getAttribute("userId")) {
             return ActionConstant.REDIRECT_TO_HOME;
         }
         User user = ActionConstant.USER_SERVICE.getUserById(order.getIdUser());
-        List<ProductItem> items = ActionConstant.ORDER_SERVICE.getItemsByOrder(order);
+        List<ProductItem> productItemList = ActionConstant.ORDER_SERVICE.getItemsByOrder(order);
         request.setAttribute("user", user);
         request.setAttribute("order", order);
-        request.setAttribute("items", items);
+        request.setAttribute("items", productItemList);
         request.getSession().setAttribute("orderID", null);
         Logger.info("check showed successfully");
         return new View("check");

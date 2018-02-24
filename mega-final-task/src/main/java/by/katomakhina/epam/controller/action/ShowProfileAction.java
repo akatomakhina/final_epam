@@ -17,22 +17,22 @@ public class ShowProfileAction extends ActionImpl {
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String param = request.getParameter("id");
-        Integer id;
+        Integer idUser;
         if (isAuthorized(request) && param == null) {
-            id = (int) request.getSession(false).getAttribute("idUser");
+            idUser = (int) request.getSession(false).getAttribute("userId");
         }
 
         if (!isAuthorized(request) && param == null) {
-            Logger.info("user is not authorized");
+            Logger.info("User is not authorized");
             return ActionConstant.REDIRECT_TO_HOME;
         }
         if (isInteger(request, "id")) {
-            id = Integer.parseInt(param);
+            idUser = Integer.parseInt(param);
         } else {
-            Logger.info("processing redirect to home-page");
+            Logger.info("Processing redirect to home-page");
             return ActionConstant.REDIRECT_TO_HOME;
         }
-        User user = ActionConstant.USER_SERVICE.getUserById(id);
+        User user = ActionConstant.USER_SERVICE.getUserById(idUser);
         request.setAttribute("user", user);
         return new View("profile");
     }

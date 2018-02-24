@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Order extends Id implements Serializable {
     private List<ProductItem> productItem;
-    private int amount;
+    private double amount;
     private Timestamp date;
     private Status status;
     private int idUser;
@@ -23,11 +23,11 @@ public class Order extends Id implements Serializable {
         this.productItem = productItem;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

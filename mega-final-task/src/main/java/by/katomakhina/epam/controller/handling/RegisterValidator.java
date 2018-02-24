@@ -28,7 +28,7 @@ public class RegisterValidator extends ValidatorImpl {
         } else if (!isStringMatches(getRegex("name"), lastName) || lastName.length() > STRING_LIMIT) {
             messages.add("invalidLastName");
         }
-        if (!isStringMatches(getRegex("notEmpty"), lastName)) {
+        if (!isStringMatches(getRegex("notEmpty"), login)) {
             messages.add("loginEmpty");
         } else if (!isStringMatches(getRegex("name"), login) || login.length() > STRING_LIMIT) {
             messages.add("invalidLogin");
@@ -51,6 +51,5 @@ public class RegisterValidator extends ValidatorImpl {
             sendMessagesByRequestAttribute(messages, request);
         }
         return messages.isEmpty();
-
     }
 }

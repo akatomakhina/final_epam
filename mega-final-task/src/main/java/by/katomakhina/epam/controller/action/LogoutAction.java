@@ -17,10 +17,10 @@ public class LogoutAction extends ActionImpl {
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        session.setAttribute("idUser", null);
+        session.setAttribute("userId", null);
         session.setAttribute("loggedUser", null);
         session.setAttribute("loggedUserRole", null);
-        Logger.info("logout successful");
+        Logger.info("Logout successful");
         return ActionConstant.REDIRECT_TO_HOME;
     }
 }

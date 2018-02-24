@@ -23,7 +23,7 @@ public class CatalogDAOImpl extends IdDAOImpl implements CatalogDAO {
     }
 
     @Override
-    public List<Catalog> getAllCategories() throws CatalogDAOException {
+    public List<Catalog> getAllCatalogs() throws CatalogDAOException {
         try {
             PreparedStatement statement = connection.prepareStatement(getQuery("CATALOG_GET_ALL"));
             ResultSet resultSet = statement.executeQuery();

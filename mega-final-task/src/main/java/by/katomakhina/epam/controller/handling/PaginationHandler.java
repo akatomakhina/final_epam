@@ -27,9 +27,9 @@ public class PaginationHandler<E> {
         return pageNumbers;
     }
 
-    public List<E> getPageContent(int pageNum) {
+    public List<E> getPageContent(int pageNumbers) {
         List<E> fragmentList = new ArrayList<>();
-        int begin = pageNum * numberOfPages - numberOfPages;
+        int begin = pageNumbers * numberOfPages - numberOfPages;
         for (int i = 0; i < numberOfPages; i++) {
             fragmentList.add(allRecords.get(begin));
             begin++;

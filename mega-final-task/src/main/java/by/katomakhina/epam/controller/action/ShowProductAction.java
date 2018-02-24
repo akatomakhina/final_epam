@@ -20,14 +20,14 @@ public class ShowProductAction extends ActionImpl {
         String param = request.getParameter("id");
         View view;
         if (param != null) {
-            Integer id = Integer.parseInt(param);
-            Product product = ActionConstant.PRODUCT_SERVICE.findById(id);
-            int quantity = ActionConstant.PRODUCT_SERVICE.findAmountByProductId(id);
-            request.setAttribute("quantityNum", quantity);
+            Integer idProduct = Integer.parseInt(param);
+            Product product = ActionConstant.PRODUCT_SERVICE.findById(idProduct);
+            int amount = ActionConstant.PRODUCT_SERVICE.findAmountByProductId(idProduct);
+            request.setAttribute("quantityNum", amount);
             request.setAttribute("product", product);
             if (isAdmin(request)) {
-                List<Catalog> catalog = ActionConstant.CATEGORY_SERVICE.getCatalogTree();
-                request.setAttribute("categories", catalog);
+                List<Catalog> catalogs = ActionConstant.CATEGORY_SERVICE.getCatalogTree();
+                request.setAttribute("categories", catalogs);
             }
             Logger.info("successful forward to product-page");
             view = new View("product-page");

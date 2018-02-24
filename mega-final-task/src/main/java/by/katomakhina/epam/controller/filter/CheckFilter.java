@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "CheckFilter", urlPatterns = "/do/check")
+@WebFilter(filterName = "CheckFilter", urlPatterns = "/nastichka/check")
 public class CheckFilter implements Filter {
     private static final Logger Logger = LogManager.getLogger(CheckFilter.class);
 
@@ -33,8 +33,8 @@ public class CheckFilter implements Filter {
         String param = request.getParameter("id");
         try {
             OrderServiceImpl orderService = new OrderServiceImpl();
-            int id = Integer.parseInt(param);
-            Order order = orderService.getOrderById(id);
+            int idOrder = Integer.parseInt(param);
+            Order order = orderService.getOrderById(idOrder);
 
             if (order.getId() == 0) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");

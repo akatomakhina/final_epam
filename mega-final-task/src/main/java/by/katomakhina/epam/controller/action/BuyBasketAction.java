@@ -18,17 +18,17 @@ public class BuyBasketAction extends ActionImpl{
 
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        Integer userId = (int) request.getSession().getAttribute("idUser");
-        List<ProductItem> itemList = ActionConstant.PRODUCT_SERVICE.getBasketByUserId(userId);
-        Basket basket = ActionConstant.PRODUCT_SERVICE.createBasket(itemList);
+        Integer idUser = (int) request.getSession().getAttribute("userId");
+        List<ProductItem> productItemList = ActionConstant.PRODUCT_SERVICE.getBasketByUserId(idUser);
+        Basket basket = ActionConstant.PRODUCT_SERVICE.createBasket(productItemList);
         View view;
         if (basket.isValid()) {
-            buySuccessTemplate(request, itemList, userId);
+            buySuccessTemplate(request, productItemList, idUser);
             view = new View("payment");
         } else {
-            request.getSession().setAttribute("invalidBasket", "you should check amount in your basket");
+            request.getSession().setAttribute("invalidCart", "you should check amount in your basket");
             Logger.info("cannot buy users basket because of invalid amount");
-            view = new View("basket", ActionConstant.REDIRECT);
+            view = new View("cart", ActionConstant.REDIRECT);
         }
         return view;
 

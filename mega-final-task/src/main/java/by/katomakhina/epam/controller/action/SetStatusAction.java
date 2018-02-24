@@ -18,8 +18,8 @@ public class SetStatusAction extends ActionImpl {
         View view;
         if (isAdmin(request)) {
             String status = request.getParameter("status");
-            Integer orderId = Integer.parseInt(request.getParameter("order"));
-            ActionConstant.ORDER_SERVICE.setOrderStatus(orderId, status);
+            Integer idOrder = Integer.parseInt(request.getParameter("order"));
+            ActionConstant.ORDER_SERVICE.setOrderStatus(idOrder, status);
             request.getSession().setAttribute("successUpdateMsg", "Status change successful");
             Logger.info("Status change successful");
             view = new View("order-manager", ActionConstant.REDIRECT);

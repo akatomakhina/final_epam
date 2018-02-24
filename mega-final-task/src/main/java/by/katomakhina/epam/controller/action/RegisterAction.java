@@ -38,13 +38,13 @@ public class RegisterAction extends ActionImpl{
                 String message = "Congratulations! Registration successful, you can autorize now";
                 request.getSession().setAttribute("message", message);
                 inf.setName("login-page");
-                Logger.info("registration successfully");
+                Logger.info("Registration successfully");
                 inf.setRedirect(true);
             }
 
             return inf;
         } else {
-            Logger.info("registration failure");
+            Logger.info("Registration failure");
             return new View(getReferrerName(request), ActionConstant.REDIRECT);
         }
     }

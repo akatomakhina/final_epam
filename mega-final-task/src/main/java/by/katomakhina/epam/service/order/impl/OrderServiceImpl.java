@@ -24,48 +24,51 @@ public class OrderServiceImpl implements OrderService {
     private static final Logger Logger = LogManager.getLogger(OrderServiceImpl.class);
 
     @Override
-    public Order createOrder(List<ProductItem> itemList, int idUser, boolean isFromBalance) throws ServiceException, DAOException {
-        DAOFactoryImpl factoryJdbc = null;
+    public Order createOrder(List<ProductItem> productItemList, int idUser, boolean isFromBalance) throws ServiceException, DAOException {
+        DAOFactoryImpl factory = null;
         try {
-            factoryJdbc = new DAOFactoryImpl();
-            factoryJdbc.startTransaction();
+            factory = new DAOFactoryImpl();
+            factory.startTransaction();
+
             Order order = new Order();
             order.setDate(getDate());
-            OrderDAOImpl orderDao = factoryJdbc.getDAO(OrderDAOImpl.class);
-            ProductItemDAOImpl itemDao = factoryJdbc.getDAO(ProductItemDAOImpl.class);
-            int totalAmount = getTotalAmount(itemList);
+
+            OrderDAOImpl orderDAO = factory.getDAO(OrderDAOImpl.class);
+
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            double totalAmount = getTotalAmount(productItemList);
             order.setAmount(totalAmount);
             order.setIdUser(idUser);
-            int orderId = orderDao.createOrder(order);
-            order.setProductItem(itemList);
+            int orderId = orderDAO.createOrder(order);
+            order.setProductItem(productItemList);
             order.setId(orderId);
 
-            for (ProductItem productItem : itemList) {
+            for (ProductItem productItem : productItemList) {
                 int ProductId = productItem.getProduct().getId();
-                int quantityInWarehouse = itemDao.findAmountByProductWarehouse(productItem.getProduct().getId());
-                itemDao.createOrderItem(productItem, orderId);
-                int result = quantityInWarehouse - productItem.getAmount();
-                itemDao.updateAmountInWarehouse(result, ProductId);
+                int amountInWarehouse = productItemDAO.findAmountByProductWarehouse(productItem.getProduct().getId());
+                productItemDAO.createOrderItem(productItem, orderId);
+                int result = amountInWarehouse - productItem.getAmount();
+                productItemDAO.updateAmountInWarehouse(result, ProductId);
             }
             if (isFromBalance){
-                UserDAOImpl userDAO = factoryJdbc.getDAO(UserDAOImpl.class);
+                UserDAOImpl userDAO = factory.getDAO(UserDAOImpl.class);
                 double balanceAfterTransaction = userDAO.getUserBalance(idUser) - totalAmount;
                 userDAO.updateBalance((int) balanceAfterTransaction, idUser);
             }
-            itemDao.deleteBasketByUser(idUser);
-            factoryJdbc.commitTransaction();
+            productItemDAO.deleteBasketByUser(idUser);
+            factory.commitTransaction();
             return order;
         } catch (DAOException e) {
             try {
-                factoryJdbc.rollbackTransaction();
+                factory.rollbackTransaction();
             } catch (DAOException e1) {
                 throw new ServiceException("Cannot rollback transaction");
             }
             e.printStackTrace();
-            throw new ServiceException("Cannot create single-item order");
+            throw new ServiceException("Cannot create item order");
 
         } finally {
-            factoryJdbc.closeConnection();
+            factory.closeConnection();
         }
     }
 
@@ -100,29 +103,29 @@ public class OrderServiceImpl implements OrderService {
         try {
             AbstractDAOFactory factory = new DAOFactoryImpl();
             OrderDAOImpl orderDao = factory.getDAO(OrderDAOImpl.class);
-            return orderDao.getAllOrdersByID();
+            return orderDao.getAllOrdersById();
         } catch (DAOException e) {
             throw new ServiceException("Cannot get all orders");
         }
     }
 
     @Override
-    public void setOrderStatus(int id, String status) throws ServiceException {
+    public void setOrderStatus(int idOrder, String status) throws ServiceException {
         try {
             AbstractDAOFactory factory = new DAOFactoryImpl();
             OrderDAOImpl userDAO = factory.getDAO(OrderDAOImpl.class);
-            userDAO.updateOrderStatus(id, status);
+            userDAO.updateOrderStatus(idOrder, status);
         } catch (DAOException e) {
             throw new ServiceException("Cannot set order status");
         }
     }
 
     @Override
-    public Order getOrderById(int id) throws ServiceException {
+    public Order getOrderById(int idOrder) throws ServiceException {
         try {
             DAOFactoryImpl factory = new DAOFactoryImpl();
             OrderDAOImpl orderDAO = factory.getDAO(OrderDAOImpl.class);
-            return (Order) orderDAO.findById(id, Order.class); //!!!!!!!! CAST
+            return (Order) orderDAO.findById(idOrder, Order.class); //!!!!!!!! CAST
         } catch (DAOException e) {
             throw new ServiceException("Cannot get order by id");
         }
@@ -148,16 +151,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int getTotalAmount(List<ProductItem> list) throws ServiceException {
-        int result = 0;
-        for (ProductItem item : list) {
-            int price = (int) (item.getProduct().getPrice() * item.getAmount()); //CAST
+    public double getTotalAmount(List<ProductItem> productList) {
+        double result = 0;
+        for (ProductItem item : productList) {
+            double price = (item.getProduct().getPrice() * item.getAmount()); //CAST
             result = result + price;
         }
         return result;
     }
 
-    private Timestamp getDate() throws ServiceException { //PRIVATE
+
+    private Timestamp getDate(){ //PRIVATE
         Date date = new java.util.Date();
         return new Timestamp(date.getTime());
     }

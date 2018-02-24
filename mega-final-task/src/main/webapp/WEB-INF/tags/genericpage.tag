@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Админ
-  Date: 04.09.16
-  Time: 16:19
-  To change this template use File | Settings | File Templates.
---%>
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
 <%@attribute name="content" fragment="true" %>
 <%@attribute name="sidebar" fragment="true" %>
@@ -35,9 +28,7 @@
     <link rel="stylesheet" href="<c:url value="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>">
     <script src="<c:url value="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"/>"></script>
     <link rel="stylesheet" href="<c:url value="/css/reset.css"/>">
-    <link rel="stylesheet" href="<c:url value="/css/styles.css"/>">
-    <%--<link rel="stylesheet" href="<c:url value="/css/base.css"/>">
-    <link rel="stylesheet" href="<c:url value="/css/font.css"/>"/>--%>
+    <link rel="stylesheet" href="<c:url value="/css/styles.css"/>"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title></title>
 
@@ -45,44 +36,60 @@
 </head>
 
 <body>
+    <%--<li class="icon">
+        <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+    </li>--%>
 
-<%--<header>
-
-    <ul class="topnav" id="myTopnav">
-        <li><a href="<c:url value="/nastichka/products"/>">${catalog}</a></li>
-        <li><a href="<c:url value="/nastichka/home-page"/>">${home}</a></li>
-        <li class="icon">
-            <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
-        </li>
-        <span class="logo">
-        <table>
-
-            <tr>
-            <td class="language">
-
-             <a href="<c:url value="/nastichka/locale?lang=en"/>" style="color:white">EN</a>
-                <a href="<c:url value="/nastichka/locale?lang=ru"/>" style="color:white">RU</a>
-
-            </td>
-
-        </table>
-        </span>
-    </ul>
-</header>--%>
 <div class="wrapper">
 
     <div class="header">
         <div class="header__container">
             <div class="header__logo">
-                <a class="logo__href" href="#"></a>
+                <a class="logo__href" href="home_page.html"></a>
             </div>
-            <div class="header__language">
-                <p><a href="<c:url value="/nastichka/locale?lang=ru"/>">RU</a></p>
-                <p><a href="<c:url value="/nastichka/locale?lang=en"/>" >EN</a></p>
-            </div>
+            <ul class="header__language">
+                <li class="language__item"><a href="<c:url value="/nastichka/locale?lang=en"/>">RU</a></li>
+                <li class="language__item"><a href="<c:url value="/nastichka/locale?lang=ru"/>">EN</a></li>
+            </ul>
+
+
+            <c:if test="${empty loggedUserRole&&empty lock}">
+                <form action="<c:url value="/nastichka/login"/>" method="POST">
+                    <div class="header__center">
+
+                        <input type="text" name="email" class="header__registration__input" placeholder="Email" required>
+                        <span class="error"><br/></span>
+                        <%--<br>--%>
+
+                        <input type="password" name="password" class="header__registration__input" placeholder="Пароль" required>
+                        <span class="error">${loginError}</span>
+                        </br>
+
+                        <c:remove var="loginError" scope="session"/>
+
+                     </div>
+
+                    <div class="header__right__login">
+                        <input type="submit" class="header__login__button" value="${submit}"/>
+                    </div>
+                </form>
+
+                    </br>
+                    </br>
+
+                <form action="<c:url value="/nastichka/register"/>">
+
+                    <div class="header__right__registration">
+                        <input type="submit" class="header__registration__button" value="${registerLabel}"/>
+                    </div>
+
+                 </form>
+            </c:if>
+
             <div class="header__right">
-                <p><a href="#">Войти</a></p>
-                <p><a href="registration.html">Зарегистрироваться</a></p>
+                <c:if test="${not empty userId}">
+                    <p><a href="<c:url value="/nastichka/logout"/>">${logout}</a></p>
+                </c:if>
             </div>
         </div>
     </div>
@@ -91,7 +98,7 @@
     <div class = "menu__container">
         <ul class="menu">
             <li class="menu__item"><p><a class="main__href" href="<c:url value="/nastichka/home-page"/>"><b>${home}</b></a></p></li>
-            <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nastichka/products"/>">${catalog}</a></p>
+            <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nastichka/catalog"/>">${catalog}</a></p>
                 <ul class="sub__menu">
                     <li> <p><a href="#">Товары для детей</a></p> </li>
                     <li> <p><a href="#">Техника</a></p> </li>
@@ -101,89 +108,46 @@
                     <li> <p><a href="#">Обувь</a></p> </li>
                 </ul>
             </li>
-            <li class="menu__item"><p><a class="oder__href" href="#">Доставка</a></p></li>
-            <li class="menu__item"><p><a class="oder__href" href="#">Профиль</a></p></li>
-            <li class="menu__item"><p><a class="oder__href" href="#">Контакты</a></p></li>
+
+            <c:if test="${not empty userId}">
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nastichka/profile?id=${userId}"/>">${myProfile}</a></p></li>
+            </c:if>
+
+            <c:if test="${loggedUserRole.equals('User')}">
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nastichka/orders"/>">${myOrders}</a></p></li>
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nastichka/basket"/>">${myCart}</a></p></li>
+            </c:if>
         </ul>
     </div>
 
 
     <main>
-        <div id="content">
-            <div class="innertube">
-
-                <jsp:invoke fragment="content"/>
-            </div>
-        </div>
+           <jsp:invoke fragment="content"/>
     </main>
 
-    <nav>
-        <div class="innertube">
-            <c:if test="${loggedUser.role.equals('Admin')}">
-                <a href="<c:url value="/nastichka/admin-page"/>">${adminPage}</a></br>
-                <a href="<c:url value="/nastichka/order-manager"/>">${orderManager}</a></br>
-                <a href="<c:url value="/nastichka/catalog-manager"/>">${catalogManager}</a></br>
-            </c:if>
-            <c:if test="${not empty userId}">
-                <a href="<c:url value="/nastichka/profile?id=${userId}"/>">${myProfile}</a></br>
-                <a href="<c:url value="/nastichka/logout"/>">${logout}</a></br>
-            </c:if>
-            <c:if test="${loggedUserRole.equals('User')}">
-                <a href="<c:url value="/nastichka/my-orders"/>">${myOrders}</a></br>
-                <a href="<c:url value="/nastichka/cart"/>">${myCart}</a></br>
-            </c:if>
-            <c:if test="${empty loggedUserRole&&empty lock}">
-                <h1 style="font-size: 200%">${authorize}</h1>
-                <table>
-                    <form action="<c:url value="/nastichka/login"/>" method="POST">
+
+   <%-- <c:if test="${loggedUser.role.equals('Admin')}">
+        <a href="<c:url value="/nastichka/admin-page"/>">${adminPage}</a></br>
+        <a href="<c:url value="/nastichka/order-manager"/>">${orderManager}</a></br>
+        <a href="<c:url value="/nastichka/catalog-manager"/>">${catalogManager}</a></br>
+    </c:if>--%>
 
 
-                        <tr>
-                            <td align="right" valign="top">${email}</td>
-                            <td><input type="text" name="email"><span class="error"><br/></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right" valign="top">${password}</td>
-                            <td><input type="password" name="password"><span class="error">${loginError}</span>
-                                <c:remove var="loginError" scope="session"/></td>
-                        </tr>
-
-                        <tr>
-                            <td></td>
-                            <td><br/><input type="submit" value="${submit}"/></td>
-                        </tr>
-
-                    </form>
-                    <tr>
-                        <td></td>
-                        <form action="<c:url value="/nastichka/register"/>">
-                            <td>
-                                <input type="submit" value="${registerLabel}"/>
-                            </td>
-                        </form>
-                    </tr>
-                </table>
-
-            </c:if>
-            <jsp:invoke fragment="sidebar"/>
-        </div>
-    </nav>
+    <%--<jsp:invoke fragment="sidebar"/>--%>
 
 
-
-<div class="footer">
-    <div class="container">
-        <div class="footer__left">
-            <p>© 2018 «Shop»</p>
-            <p>+495 884-0005, info@shop.ru</p>
-        </div>
-        <div class="footer__right">
-            <p><a href="#">Политика конфеденциальности</a></p>
-            <p><a href="#">Условия использования</a></p>
+    <div class="footer">
+        <div class="container">
+            <div class="footer__left">
+                <p>© 2018 «Shop»</p>
+                <p>+495 884-0005, info@shop.ru</p>
+            </div>
+            <div class="footer__right">
+                <p><a href="#">Политика конфеденциальности</a></p>
+                <p><a href="#">Условия использования</a></p>
+            </div>
         </div>
     </div>
-</div>
 
 </div>
 

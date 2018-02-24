@@ -25,15 +25,15 @@ public class UserServiceImpl implements UserService {
         try {
             factory = new DAOFactoryImpl();
             factory.startTransaction();
-            ProductItemDAOImpl itemDAO = factory.getDAO(ProductItemDAOImpl.class);
-            itemDAO.deleteBasketByUser(id);
-            itemDAO.deleteOrderItemById(id);
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            productItemDAO.deleteBasketByUser(id);
+            productItemDAO.deleteOrderItemById(id);
             OrderDAOImpl orderDAO = factory.getDAO(OrderDAOImpl.class);
             orderDAO.deleteOrdersByUser(id);
-            UserDAOImpl dao = factory.getDAO(UserDAOImpl.class);
+            UserDAOImpl userDAO = factory.getDAO(UserDAOImpl.class);
             User user = new User();
             user.setId(id);
-            dao.deleteUser(user);
+            userDAO.deleteUser(user);
             factory.commitTransaction();
         } catch (DAOException e) {
             try {
@@ -57,8 +57,8 @@ public class UserServiceImpl implements UserService {
             PasswordHandler handler = new PasswordHandler();
             String code = handler.getHashedPassword(user.getPassword());
             user.setPassword(code);
-            UserDAOImpl dao = factory.getDAO(UserDAOImpl.class);
-            dao.createUser(user);
+            UserDAOImpl userDAO = factory.getDAO(UserDAOImpl.class);
+            userDAO.createUser(user);
         } catch (DAOException e) {
             Logger.error("Cannot create user");
             e.printStackTrace();
@@ -71,8 +71,8 @@ public class UserServiceImpl implements UserService {
         try {
             boolean result = false;
             AbstractDAOFactory factory = new DAOFactoryImpl();
-            UserDAOImpl dao = factory.getDAO(UserDAOImpl.class);
-            User user = dao.findByEmail(email);
+            UserDAOImpl userDAO = factory.getDAO(UserDAOImpl.class);
+            User user = userDAO.findByEmail(email);
             if (user.getEmail() != null) {
                 result = true;
             }
@@ -89,8 +89,8 @@ public class UserServiceImpl implements UserService {
         try {
             boolean isValid = false;
             AbstractDAOFactory factory = new DAOFactoryImpl();
-            UserDAOImpl dao = factory.getDAO(UserDAOImpl.class);
-            User user = dao.findByEmail(email);
+            UserDAOImpl userDAO = factory.getDAO(UserDAOImpl.class);
+            User user = userDAO.findByEmail(email);
             PasswordHandler handler = new PasswordHandler();
             String hashedPass = handler.getHashedPassword(password);
             String passFromBase = user.getPassword();
@@ -108,8 +108,8 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) throws ServiceException {
         try {
             AbstractDAOFactory factory = new DAOFactoryImpl();
-            UserDAOImpl dao = factory.getDAO(UserDAOImpl.class);
-            return dao.findByEmail(email);
+            UserDAOImpl userDAO = factory.getDAO(UserDAOImpl.class);
+            return userDAO.findByEmail(email);
         } catch (DAOException e) {
             Logger.error("Cannot get user by id", e);
             throw new ServiceException("Cannot get user by id");
@@ -120,8 +120,8 @@ public class UserServiceImpl implements UserService {
     public User getUserById(int id) throws ServiceException {
         try {
             AbstractDAOFactory factory = new DAOFactoryImpl();
-            UserDAOImpl dao = factory.getDAO(UserDAOImpl.class);
-            return (User) dao.findById(id, User.class); //!!!!!!!!!!! Cast
+            UserDAOImpl userDAO = factory.getDAO(UserDAOImpl.class);
+            return (User) userDAO.findById(id, User.class); //!!!!!!!!!!! Cast
         } catch (DAOException e) {
             Logger.error("Cannot get user by id");
             e.printStackTrace();
@@ -133,8 +133,8 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUser() throws ServiceException {
         try {
             DAOFactoryImpl factory = new DAOFactoryImpl();
-            UserDAOImpl dao = factory.getDAO(UserDAOImpl.class);
-            return dao.getAllUsers();
+            UserDAOImpl userDAO = factory.getDAO(UserDAOImpl.class);
+            return userDAO.getAllUsers();
         } catch (DAOException e) {
             Logger.error("Cannot get all users");
             e.printStackTrace();
@@ -160,8 +160,8 @@ public class UserServiceImpl implements UserService {
     public double getUserBalance(int idUser) throws ServiceException {
         try {
             DAOFactoryImpl factory = new DAOFactoryImpl();
-            UserDAOImpl dao = factory.getDAO(UserDAOImpl.class);
-            return dao.getUserBalance(idUser);
+            UserDAOImpl userDAO = factory.getDAO(UserDAOImpl.class);
+            return userDAO.getUserBalance(idUser);
         } catch (DAOException e) {
             Logger.error("Cannot get user balance");
             e.printStackTrace();

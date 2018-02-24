@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProductDAO {
     public List<Product> getAllProducts() throws DAOException;
-    public int create(Product product) throws DAOException;
+    public int createProduct(Product product) throws DAOException;
     public Product findProductByName(String name) throws DAOException;
     public void deleteProduct(int id) throws ProductDAOException;
     public int updateProduct(Product product) throws DAOException;

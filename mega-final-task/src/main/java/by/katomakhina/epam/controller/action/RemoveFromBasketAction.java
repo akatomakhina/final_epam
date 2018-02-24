@@ -18,16 +18,16 @@ public class RemoveFromBasketAction extends ActionImpl {
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         View view;
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+            int idBasket = Integer.parseInt(request.getParameter("id"));
             ProductServiceImpl service = new ProductServiceImpl();
-            service.removeBasketItemById(id);
-            request.getSession().setAttribute("deleteSuccess", "successful delete from cart");
-            Logger.info("successful delete from cart");
+            service.removeBasketItemById(idBasket);
+            request.getSession().setAttribute("deleteSuccess", "successful delete from basket");
+            Logger.info("Successful delete from cart");
             view = new View("cart", ActionConstant.REDIRECT);
 
         } catch (NumberFormatException e) {
             Logger.warn("Cannot delete item from cart", e);
-            request.getSession().setAttribute("deleteFail", "Error: cannot delete from cart");
+            request.getSession().setAttribute("deleteFail", "Error: cannot delete from basket");
             return new View("cart");
 
         }

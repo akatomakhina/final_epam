@@ -18,8 +18,8 @@ public class ShowCatalogManagerAction extends ActionImpl {
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         View view;
         if (isAdmin(request)) {
-            List<Catalog> categories = ActionConstant.CATEGORY_SERVICE.getCatalogTree();
-            request.setAttribute("categories", categories);
+            List<Catalog> catalogs = ActionConstant.CATEGORY_SERVICE.getCatalogTree();
+            request.setAttribute("categories", catalogs);
             Logger.info("admin went to catalog-manager page successful");
             view = new View("catalog-manager");
         } else {

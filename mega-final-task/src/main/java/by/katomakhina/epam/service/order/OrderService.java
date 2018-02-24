@@ -17,5 +17,5 @@ public interface OrderService {
     public void setOrderStatus(int id, String status) throws ServiceException;
     public Order getOrderById(int id) throws ServiceException;
     public List<ProductItem> getItemsByOrder(Order order) throws ServiceException, DAOException;
-    public int getTotalAmount(List<ProductItem> list) throws ServiceException;
+    public double getTotalAmount(List<ProductItem> list);
 }

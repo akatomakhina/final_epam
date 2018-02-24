@@ -6,5 +6,5 @@ import by.katomakhina.epam.entity.Catalog;
 import java.util.List;
 
 public interface CatalogDAO {
-    public List<Catalog> getAllCategories() throws CatalogDAOException;
+    public List<Catalog> getAllCatalogs() throws CatalogDAOException;
 }

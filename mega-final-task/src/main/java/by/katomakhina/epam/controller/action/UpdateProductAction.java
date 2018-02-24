@@ -18,21 +18,21 @@ public class UpdateProductAction extends ActionImpl {
 
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DAOException {
-        int productId = Integer.parseInt(request.getParameter("productId"));
+        int idProduct = Integer.parseInt(request.getParameter("productId"));
         ProductFormValidator validator = new ProductFormValidator();
         if (validator.execute(request, true)) {
             String title = request.getParameter("name");
             Integer price = Integer.parseInt(request.getParameter("price"));
-            Integer quantity = Integer.parseInt(request.getParameter("quantity"));
+            Integer amount = Integer.parseInt(request.getParameter("quantity"));
             String description = request.getParameter("description");
             Integer catalog = Integer.parseInt(request.getParameter("category"));
             Product product = new Product();
-            product.setId(productId);
+            product.setId(idProduct);
             product.setDescription(description);
             product.setPrice(price);
             product.setTitle(title);
             product.setId_catalog(catalog);
-            boolean isAffected = ActionConstant.PRODUCT_SERVICE.updateProduct(product, quantity);
+            boolean isAffected = ActionConstant.PRODUCT_SERVICE.updateProduct(product, amount);
             if (isAffected) {
                 request.getSession().setAttribute("success", "success update");
                 Logger.info("products updated successfully");
@@ -42,6 +42,6 @@ public class UpdateProductAction extends ActionImpl {
             }
         }
 
-        return new View("product-page?id=" + productId, ActionConstant.REDIRECT);
+        return new View("product-page?id=" + idProduct, ActionConstant.REDIRECT);
     }
 }

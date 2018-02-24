@@ -9,8 +9,8 @@ import java.util.List;
 public interface OrderDAO {
     public int createOrder(Order order) throws DAOException;
     public void deleteOrdersByUser(int userId) throws DAOException;
-    public List<Order> getAllOrdersByID() throws DAOException;
+    public List<Order> getAllOrdersById() throws DAOException;
     public List<Order> getAllUserOrders(int userId) throws DAOException;
-    public void updateOrderStatus(int id, String status) throws DAOException;
+    public void updateOrderStatus(int idOrder, String status) throws DAOException;
     public List<Status> getAllOrderStatuses() throws DAOException;
 }

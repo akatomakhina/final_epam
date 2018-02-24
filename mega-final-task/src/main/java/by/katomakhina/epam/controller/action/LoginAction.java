@@ -21,20 +21,20 @@ public class LoginAction extends ActionImpl {
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        UserServiceImpl service = new UserServiceImpl();
+        UserServiceImpl userService = new UserServiceImpl();
         User user;
         View redirectToReferrer = new View(getReferrerName(request), ActionConstant.REDIRECT);
-        boolean isValidPair = service.isEmailExist(email) && service.isValidPair(email, password);
+        boolean isValidPair = userService.isEmailExist(email) && userService.isValidPair(email, password);
         if (isValidPair) {
-            user = service.getUserByEmail(email);
+            user = userService.getUserByEmail(email);
             request.getSession(false).setAttribute("loggedUser", user);
-            request.getSession(false).setAttribute("idUser", user.getId());
+            request.getSession(false).setAttribute("userId", user.getId());
             request.getSession(false).setAttribute("loggedUserRole", user.getRole());
-            Logger.info(user.getFirstName() + " " + user.getLastName() + "logged successfully");
+            Logger.info(user.getFirstName() + " " + user.getLastName() + " " + user.getLogin() + " " + "Logged successfully");
 
         } else {
             session.setAttribute("loginError", "Invalid Login or Password");
-            Logger.info("authorization is failed");
+            Logger.info("Authorization is failed");
         }
         return redirectToReferrer;
     }

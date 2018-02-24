@@ -26,7 +26,7 @@ public class OrderDAOImpl extends IdDAOImpl implements OrderDAO {
             String query = getQuery("CREATE_ORDER");
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, order.getIdUser());
-            statement.setInt(2, order.getAmount());
+            statement.setDouble(2, order.getAmount());
             statement.setTimestamp(3, order.getDate());
             Integer affectedRows = statement.executeUpdate();
             Logger.info("Rows affected in 'orders'" + affectedRows.toString());
@@ -54,7 +54,7 @@ public class OrderDAOImpl extends IdDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<Order> getAllOrdersByID() throws DAOException {
+    public List<Order> getAllOrdersById() throws DAOException {
         List<Order> orders = new ArrayList<>();
         try {
             String query = getQuery("ORDERS_GET_ALL");
@@ -111,12 +111,12 @@ public class OrderDAOImpl extends IdDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void updateOrderStatus(int id, String status) throws DAOException {
+    public void updateOrderStatus(int idOrder, String status) throws DAOException {
         try {
             String query = getQuery("UPDATE_ORDER_STATUS");
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, status);
-            statement.setInt(2, id);
+            statement.setInt(2, idOrder);
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating user failed, no rows affected.");

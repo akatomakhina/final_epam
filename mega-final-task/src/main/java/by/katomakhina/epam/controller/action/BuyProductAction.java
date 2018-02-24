@@ -23,28 +23,28 @@ public class BuyProductAction extends ActionImpl {
         View view;
         View redirectToReferrer = new View(getReferrerName(request), ActionConstant.REDIRECT);
         if (isUser(request)) {
-            int productId = Integer.parseInt(request.getParameter("idProduct"));
-            int buyQuantity;
+            int idProduct = Integer.parseInt(request.getParameter("productId"));
+            int buyAmount;
             try {
-                buyQuantity = Integer.parseInt(request.getParameter("buyAmount"));
+                buyAmount = Integer.parseInt(request.getParameter("buyQuantity"));
             } catch (NumberFormatException e) {
-                request.getSession().setAttribute("invalidAmount", "avoid using negative numbers and zero");
-                Logger.warn("cannot purchase single item because of invalid amount");
+                request.getSession().setAttribute("invalidQuantity", "Avoid using negative numbers and zero");
+                Logger.warn("Cannot purchase single item because of invalid amount");
                 return redirectToReferrer;
             }
-            int userId = (int) request.getSession().getAttribute("idUser");
-            List<ProductItem> itemList = new ArrayList<>();
-            Product product = ActionConstant.PRODUCT_SERVICE.findById(productId);
-            ProductItem item = new ProductItem(product, buyQuantity);
-            itemList.add(item);
-            if (ActionConstant.PRODUCT_SERVICE.isAmountValid(buyQuantity, productId)) {
-                buySuccessTemplate(request, itemList, userId);
+            int userId = (int) request.getSession().getAttribute("userId");
+            List<ProductItem> productItemList = new ArrayList<>();
+            Product product = ActionConstant.PRODUCT_SERVICE.findById(idProduct);
+            ProductItem productItem = new ProductItem(product, buyAmount);
+            productItemList.add(productItem);
+            if (ActionConstant.PRODUCT_SERVICE.isAmountValid(buyAmount, idProduct)) {
+                buySuccessTemplate(request, productItemList, userId);
                 view = new View("payment");
 
             } else {
                 HttpSession session = request.getSession();
-                session.setAttribute("invalidAmount", "you should set number less than amount in warehouse. But avoid using negative numbers and zero");
-                Logger.warn("cannot purchase single item because of invalid amount");
+                session.setAttribute("invalidQuantity", "You should set number less than amount in warehouse. But avoid using negative numbers and zero");
+                Logger.warn("Cannot purchase single item because of invalid amount");
                 view = redirectToReferrer;
             }
 

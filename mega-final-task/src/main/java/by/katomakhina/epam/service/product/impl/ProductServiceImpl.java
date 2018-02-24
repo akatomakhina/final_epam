@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private static final Logger Logger = LogManager.getLogger(ProductServiceImpl.class);
 
@@ -27,9 +27,9 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void removeBasketItemById(int id) throws ServiceException {
         try {
-            DAOFactoryImpl factoryJdbc = new DAOFactoryImpl();
-            ProductItemDAOImpl itemDAO = factoryJdbc.getDAO(ProductItemDAOImpl.class);
-            itemDAO.removeFromBasketById(id);
+            DAOFactoryImpl factory = new DAOFactoryImpl();
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            productItemDAO.removeFromBasketById(id);
         } catch (DAOException e) {
             Logger.error("Cannot remove basket item by id");
             e.printStackTrace();
@@ -40,19 +40,19 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void addProductToCart(int idUser, int idProduct, int amount) throws ServiceException {
+    public void addProductToBasket(int idUser, int idProduct, int amount) throws ServiceException {
         try {
             DAOFactoryImpl factory = new DAOFactoryImpl();
-            ProductItem item = new ProductItem();
+            ProductItem productItem = new ProductItem();
             Product product = findById(idProduct);
-            item.setProduct(product);
-            item.setAmount(amount);
-            ProductItemDAOImpl itemDAO = factory.getDAO(ProductItemDAOImpl.class);
-            int quantityInCart = itemDAO.getBasketAmount(idProduct);
-            if (quantityInCart != 0) {
-                itemDAO.updateAmountInBasket(amount + quantityInCart, idProduct);
+            productItem.setProduct(product);
+            productItem.setAmount(amount);
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            int amountInBasket = productItemDAO.getBasketAmount(idProduct);
+            if (amountInBasket != 0) {
+                productItemDAO.updateAmountInBasket(amount + amountInBasket, idProduct);
             } else {
-                itemDAO.addToBasket(item, idUser);
+                productItemDAO.addToBasket(productItem, idUser);
             }
         } catch (DAOException e) {
             Logger.error("Cannot add product to basket");
@@ -66,9 +66,9 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<ProductItem> getBasketByUserId(int idUser) throws ServiceException {
         try {
-            AbstractDAOFactory daoFactoryJdbc = new DAOFactoryImpl();
-            ProductItemDAOImpl itemDao = daoFactoryJdbc.getDAO(ProductItemDAOImpl.class);
-            return itemDao.getAllBasketByUserId(idUser);
+            AbstractDAOFactory factory = new DAOFactoryImpl();
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            return productItemDAO.getAllBasketByUserId(idUser);
         } catch (DAOException e) {
             Logger.error("Cannot get basket");
             e.printStackTrace();
@@ -82,9 +82,9 @@ public class ProductServiceImpl implements ProductService{
             if (amount <= 0) {
                 return false;
             }
-            DAOFactoryImpl factoryJdbc = new DAOFactoryImpl();
-            ProductItemDAOImpl dao = factoryJdbc.getDAO(ProductItemDAOImpl.class);
-            int warehouse = dao.findAmountByProductWarehouse(idProduct);
+            DAOFactoryImpl factory = new DAOFactoryImpl();
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            int warehouse = productItemDAO.findAmountByProductWarehouse(idProduct);
             return warehouse >= amount;
         } catch (DAOException e) {
             Logger.error("Cannot check is amount valid");
@@ -100,9 +100,9 @@ public class ProductServiceImpl implements ProductService{
             ProductDAOImpl ProductDAO = factory.getDAO(ProductDAOImpl.class);
             return ProductDAO.getAllProducts();
         } catch (DAOException e) {
-            Logger.error("Cannot get Product");
+            Logger.error("Cannot get product");
             e.printStackTrace();
-            throw new ServiceException("Cannot get Product");
+            throw new ServiceException("Cannot get product");
         }
     }
 
@@ -113,43 +113,43 @@ public class ProductServiceImpl implements ProductService{
             ProductDAOImpl ProductDAO = factory.getDAO(ProductDAOImpl.class);
             return (Product) ProductDAO.findById(id, Product.class); //!!!!!!!!! Cast
         } catch (DAOException e) {
-            Logger.error("Cannot find by id");
+            Logger.error("Cannot find by product id");
             e.printStackTrace();
-            throw new ServiceException("Cannot find by id");
+            throw new ServiceException("Cannot find by product id");
         }
     }
 
     @Override
-    public int findAmountByProductId(int id) throws ServiceException {
+    public int findAmountByProductId(int idProduct) throws ServiceException {
         try {
-            DAOFactoryImpl factoryJdbc = new DAOFactoryImpl();
-            ProductItemDAOImpl itemDao = factoryJdbc.getDAO(ProductItemDAOImpl.class);
-            return itemDao.findAmountByProductWarehouse(id);
+            DAOFactoryImpl factory = new DAOFactoryImpl();
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            return productItemDAO.findAmountByProductWarehouse(idProduct);
         } catch (DAOException e) {
-            Logger.error("Cannot find quantity by id");
+            Logger.error("Cannot find amount by product id");
             e.printStackTrace();
-            throw new ServiceException("Cannot find quantity by id");
+            throw new ServiceException("Cannot find amount by product id");
         }
     }
 
     @Override
     public Basket createBasket(List<ProductItem> itemList) throws ServiceException {
-        List<BasketItem> cartItems = new ArrayList<>();
-        boolean isValidCart = true;
+        List<BasketItem> basketItemList = new ArrayList<>();
+        boolean isValidBasket = true;
         for (ProductItem item : itemList) {
-            BasketItem cartItem = new BasketItem();
-            cartItem.setId(item.getId());
-            cartItem.setProduct(item.getProduct());
-            cartItem.setAmount(item.getAmount());
+            BasketItem basketItem = new BasketItem();
+            basketItem.setId(item.getId());
+            basketItem.setProduct(item.getProduct());
+            basketItem.setAmount(item.getAmount());
             int inWarehouse = findAmountByProductId(item.getProduct().getId());
-            cartItem.setAmountInWarehouse(inWarehouse);
+            basketItem.setAmountInWarehouse(inWarehouse);
             if (!isAmountValid(item.getAmount(), item.getProduct().getId())) {
-                cartItem.setStatus("INVALID");
-                isValidCart = false;
+                basketItem.setStatus("INVALID");
+                isValidBasket = false;
             }
-            cartItems.add(cartItem);
+            basketItemList.add(basketItem);
         }
-        return new Basket(cartItems, isValidCart);
+        return new Basket(basketItemList, isValidBasket);
     }
 
     @Override
@@ -159,19 +159,18 @@ public class ProductServiceImpl implements ProductService{
             factory = new DAOFactoryImpl();
             factory.startTransaction();
             ProductDAOImpl ProductDAO = factory.getDAO(ProductDAOImpl.class);
-            int idProduct = ProductDAO.create(product);
-            ProductItemDAOImpl itemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            int idProduct = ProductDAO.createProduct(product);
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
             if (amount > 0) {
-                itemDAO.createWarehouseEntry(idProduct, amount);
-
+                productItemDAO.createWarehouseEntry(idProduct, amount);
             }
             factory.commitTransaction();
         } catch (DAOException e) {
             try {
                 factory.rollbackTransaction();
-                Logger.info("transaction rollback done");
+                Logger.info("Transaction rollback done");
             } catch (DAOException e1) {
-                throw new ServiceException("Cannot create");
+                throw new ServiceException("Cannot rollback transaction");
             }
             Logger.error("Cannot create new product");
             e.printStackTrace();
@@ -203,22 +202,22 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void deleteProduct(int id) throws ServiceException, DAOException {
+    public void deleteProduct(int idProduct) throws ServiceException, DAOException {
         DAOFactoryImpl factory = null;
         try {
             factory = new DAOFactoryImpl();
-            ProductDAOImpl ProductDAO = factory.getDAO(ProductDAOImpl.class);
-            ProductItemDAOImpl itemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            ProductDAOImpl productDAO = factory.getDAO(ProductDAOImpl.class);
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
             factory.startTransaction();
-            itemDAO.deleteFromWarehouseByProduct(id);
-            itemDAO.deleteFromBasketByProduct(id);
-            itemDAO.deleteOrderItemsByProduct(id);
-            ProductDAO.deleteProduct(id);
+            productItemDAO.deleteFromWarehouseByProduct(idProduct);
+            productItemDAO.deleteFromBasketByProduct(idProduct);
+            productItemDAO.deleteOrderItemsByProduct(idProduct);
+            productDAO.deleteProduct(idProduct);
             factory.commitTransaction();
         } catch (DAOException e) {
             try {
                 factory.rollbackTransaction();
-                Logger.info("transaction rollback done");
+                Logger.info("Transaction rollback done");
             } catch (DAOException e1) {
                 Logger.error("Cannot rollback transaction");
                 e.printStackTrace();
@@ -227,7 +226,7 @@ public class ProductServiceImpl implements ProductService{
             Logger.error("Cannot delete product");
             throw new ServiceException("Cannot delete product");
         } catch (ProductItemDAOException e) {
-            new ProductItemDAOException("Cannot delete product\"");
+            new ProductItemDAOException("Cannot delete product");
         } catch (ProductDAOException e) {
             new ProductDAOException("Cannot delete product");
         } finally {
@@ -241,27 +240,27 @@ public class ProductServiceImpl implements ProductService{
         boolean result;
         try {
             factory = new DAOFactoryImpl();
-            ProductDAOImpl ProductDAO = factory.getDAO(ProductDAOImpl.class);
-            ProductItemDAOImpl itemDAO = factory.getDAO(ProductItemDAOImpl.class);
-            ProductItem paramItem = new ProductItem(product, amount);
+            ProductDAOImpl productDAO = factory.getDAO(ProductDAOImpl.class);
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            ProductItem productItem = new ProductItem(product, amount);
             Product baseProduct = findById(product.getId());
-            int baseQuantity = itemDAO.findAmountByProductWarehouse(product.getId());
-            ProductItem baseItem = new ProductItem(baseProduct, baseQuantity);
-            if (paramItem.equals(baseItem)) {
+            int baseAmount = productItemDAO.findAmountByProductWarehouse(product.getId());
+            ProductItem baseItem = new ProductItem(baseProduct, baseAmount);
+            if (productItem.equals(baseItem)) {
                 return false;
             }
             factory.startTransaction();
-            int affectedRowsProduct = ProductDAO.updateProduct(product);
-            int affectedRowsWarehouse = itemDAO.updateAmountInWarehouse(amount, product.getId());
+            int affectedRowsProduct = productDAO.updateProduct(product);
+            int affectedRowsWarehouse = productItemDAO.updateAmountInWarehouse(amount, product.getId());
             factory.commitTransaction();
             result = !(affectedRowsProduct == 0 && affectedRowsWarehouse == 0);
             return result;
         } catch (DAOException e) {
             try {
                 factory.rollbackTransaction();
-                Logger.info("transaction rollback done");
+                Logger.info("Transaction rollback done");
             } catch (DAOException e1) {
-                Logger.error("cannot rollback done");
+                Logger.error("Cannot rollback done");
                 throw new ServiceException("Cannot rollback transaction");
             }
             Logger.error("Cannot update product");
@@ -273,36 +272,36 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> getSubcatalogProduct(int id) throws ServiceException {
+    public List<Product> getSubcatalogProduct(int idProduct) throws ServiceException {
         try {
             AbstractDAOFactory factory = new DAOFactoryImpl();
             ProductDAOImpl ProductDAO = factory.getDAO(ProductDAOImpl.class);
-            return ProductDAO.getSubcatalogProduct(id);
+            return ProductDAO.getSubcatalogProduct(idProduct);
         } catch (DAOException e) {
-            Logger.error("Cannot get subcategory by product");
+            Logger.error("Cannot get subcatalog by product");
             e.printStackTrace();
-            throw new ServiceException("Cannot get subcategory by product");
+            throw new ServiceException("Cannot get subcatalog by product");
         } catch (ProductDAOException e) {
-            Logger.error("Cannot get subcategory by product");
+            Logger.error("Cannot get subcatalog by product");
             e.printStackTrace();
-            throw new ServiceException("Cannot get subcategory by product");
+            throw new ServiceException("Cannot get subcatalog by product");
         }
     }
 
     @Override
-    public boolean updateBasketItem(Integer cartItemId, Integer amount) throws ServiceException {
+    public boolean updateBasketItem(Integer basketItemId, Integer amount) throws ServiceException {
         try {
             AbstractDAOFactory factory = new DAOFactoryImpl();
-            ProductItemDAOImpl productDAO = factory.getDAO(ProductItemDAOImpl.class);
-            return productDAO.updateBasketItemById(cartItemId, amount);
+            ProductItemDAOImpl productItemDAO = factory.getDAO(ProductItemDAOImpl.class);
+            return productItemDAO.updateBasketItemById(basketItemId, amount);
         } catch (DAOException e) {
-            Logger.error("Cannot get subcategory by Product");
+            Logger.error("Cannot get subcategory by product");
             e.printStackTrace();
-            throw new ServiceException("Cannot get subcategory by Product");
+            throw new ServiceException("Cannot get subcategory by product");
         } catch (ProductItemDAOException e) {
-            Logger.error("Cannot get subcategory by Product");
+            Logger.error("Cannot get subcategory by product");
             e.printStackTrace();
-            throw new ServiceException("Cannot get subcategory by Product");
+            throw new ServiceException("Cannot get subcategory by product");
         }
     }
 }

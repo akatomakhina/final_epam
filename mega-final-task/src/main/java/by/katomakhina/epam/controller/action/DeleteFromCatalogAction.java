@@ -17,12 +17,11 @@ public class DeleteFromCatalogAction extends ActionImpl {
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DAOException {
         View view;
-        View redirectToReferrer = new View(getReferrerName(request), true);
-        if (isAdmin(request) && isInteger(request, "idProduct")) {
-
-            Integer id = Integer.parseInt(request.getParameter("idProduct"));
-            ActionConstant.PRODUCT_SERVICE.deleteProduct(id);
-            request.getSession().setAttribute("deleteSuccess", "delete successful");
+        View redirectToReferrer = new View(getReferrerName(request), ActionConstant.REDIRECT);
+        if (isAdmin(request) && isInteger(request, "productId")) {
+            Integer idProduct = Integer.parseInt(request.getParameter("productId"));
+            ActionConstant.PRODUCT_SERVICE.deleteProduct(idProduct);
+            request.getSession().setAttribute("deleteSuccess", "Delete successful");
             Logger.info("delete from catalog successfully");
             if (request.getParameter("fromProductPage") == null) {
                 view = redirectToReferrer;

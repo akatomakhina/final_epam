@@ -51,7 +51,7 @@ public class ProductDAOImpl extends IdDAOImpl implements ProductDAO {
     }
 
     @Override
-    public int create(Product product) throws DAOException {
+    public int createProduct(Product product) throws DAOException {
         try {
             String query = getQuery("CREATE_PRODUCT");
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -83,9 +83,9 @@ public class ProductDAOImpl extends IdDAOImpl implements ProductDAO {
             EntityFactory<Product> factory = new EntityFactory<>();
             return factory.getInstanceFromResultSet(resultSet, Product.class);
         } catch (SQLException e) {
-            Logger.error("Cannot find Product by name");
+            Logger.error("Cannot find product by name");
             e.printStackTrace();
-            throw new DAOException("Cannot find Product by name");
+            throw new DAOException("Cannot find product by name");
         }
     }
 

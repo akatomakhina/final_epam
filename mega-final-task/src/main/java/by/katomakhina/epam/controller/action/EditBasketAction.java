@@ -16,26 +16,26 @@ public class EditBasketAction extends ActionImpl {
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         View view;
-        View redirectToCart = new View("basket", ActionConstant.REDIRECT);
+        View redirectToBasket = new View("basket", ActionConstant.REDIRECT);
         if (isUser(request)){
             try {
-                Integer cartItemId = Integer.parseInt(request.getParameter("basketItemId"));
-                Integer productId = Integer.parseInt(request.getParameter("idProduct"));
-                Integer quantity = Integer.parseInt(request.getParameter("amount"));
-                if (!ActionConstant.PRODUCT_SERVICE.isAmountValid(quantity, productId)){
+                Integer basketItemId = Integer.parseInt(request.getParameter("cartItemId"));
+                Integer idProduct = Integer.parseInt(request.getParameter("productId"));
+                Integer amount = Integer.parseInt(request.getParameter("quantity"));
+                if (!ActionConstant.PRODUCT_SERVICE.isAmountValid(amount, idProduct)){
                     throw new NumberFormatException();
                 }
-                if (!ActionConstant.PRODUCT_SERVICE.updateBasketItem(cartItemId, quantity)){
+                if (!ActionConstant.PRODUCT_SERVICE.updateBasketItem(basketItemId, amount)){
                     request.getSession().setAttribute("redundantUpdate", "msg");
                 }else {
                     request.getSession().setAttribute("successUpdate", "msg");
                 }
-                view = redirectToCart;
+                view = redirectToBasket;
             } catch (NumberFormatException | NullPointerException e) {
                 e.printStackTrace();
-                request.getSession().setAttribute("basketItemUpdateFail", "msg");
+                request.getSession().setAttribute("cartItemUpdateFail", "msg");
                 Logger.error("invalid data input", e);
-                view = redirectToCart;
+                view = redirectToBasket;
             }
         }else{
             view = ActionConstant.REDIRECT_TO_HOME;

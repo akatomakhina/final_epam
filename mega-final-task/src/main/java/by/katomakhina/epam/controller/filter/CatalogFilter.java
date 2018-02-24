@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "CatalogFilter", urlPatterns = "/do/products")
+@WebFilter(filterName = "CatalogFilter", urlPatterns = "/nastichka/products")
 public class CatalogFilter implements Filter {
 
     private static final Logger Logger = LogManager.getLogger(CatalogFilter.class);
@@ -34,24 +34,24 @@ public class CatalogFilter implements Filter {
         String param = request.getParameter("catalog");
         if (param == null) {
             chain.doFilter(request, response);
-            Logger.info("filtered successfully");
+            Logger.info("Filtered successfully");
             return;
         }
         try {
-            CatalogServiceImpl categoryService = new CatalogServiceImpl();
-            int id = Integer.parseInt(param);
-            Subcatalog subcategory = categoryService.getSubcatalogById(id);
+            CatalogServiceImpl catalogService = new CatalogServiceImpl();
+            int idCatalog = Integer.parseInt(param);
+            Subcatalog subcategory = catalogService.getSubcatalogById(idCatalog);
             if (subcategory.getId() == 0) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
             } else {
                 chain.doFilter(request, response);
-                Logger.info("filtered successfully");
+                Logger.info("Filtered successfully");
             }
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
 
         } catch (ServiceException e) {
-            Logger.info("filtered successfully");
+            Logger.info("Filtered successfully");
             e.printStackTrace();
         }
     }

@@ -23,16 +23,17 @@ public class NewProductAction extends ActionImpl {
         if (isAdmin(request)) {
             ProductFormValidator validator = new ProductFormValidator();
             if (validator.execute(request, false)) {
-                Integer quantity = 0;
+                Integer amount = 0;
                 Product product = new Product();
-                if (!(request.getParameter("amount").equals(""))) {
-                    quantity = Integer.parseInt(request.getParameter("amount"));
+                if (!(request.getParameter("quantity").equals(""))) {
+                    amount = Integer.parseInt(request.getParameter("quantity"));
                 }
-                product.setTitle(request.getParameter("title").trim());
-                product.setId_catalog(Integer.parseInt(request.getParameter("catalog")));
+                product.setTitle(request.getParameter("name").trim());
+                product.setId_catalog(Integer.parseInt(request.getParameter("category")));
                 product.setPrice(Integer.parseInt(request.getParameter("price")));
                 product.setDescription(request.getParameter("description"));
-                ActionConstant.PRODUCT_SERVICE.createProduct(product, quantity);
+                product.setVendor(request.getParameter("vendor"));
+                ActionConstant.PRODUCT_SERVICE.createProduct(product, amount);
                 request.getSession().setAttribute("successUpdate", "Product added successfully");
                 Logger.info("product entry added successfully");
                 view = redirectToCatalogManager;
