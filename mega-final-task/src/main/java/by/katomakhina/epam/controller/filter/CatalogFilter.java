@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "CatalogFilter", urlPatterns = "/nastichka/products")
+@WebFilter(filterName = "CatalogFilter", urlPatterns = "/nk/products")
 public class CatalogFilter implements Filter {
 
     private static final Logger Logger = LogManager.getLogger(CatalogFilter.class);

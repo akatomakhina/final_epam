@@ -27,16 +27,16 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
 
     @Override
     public void createUser(User user) throws UserDAOException {
-        ResourceBundle resource = ResourceBundle.getBundle("inquiry");
+        ResourceBundle resource = ResourceBundle.getBundle("inquery");
         String query = resource.getString("CREATE_USER");
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getLogin());
-            statement.setString(4, user.getPassword());
-            statement.setString(5, user.getEmail());
-            statement.setInt(6, 2);
+            statement.setString(4, user.getEmail());
+            statement.setInt(5, 2);
+            statement.setString(6, user.getPassword());
             statement.executeUpdate();
         } catch (SQLException e) {
             Logger.error("Cannot create user in DAO", e);
@@ -49,7 +49,7 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
     @Override
     public void deleteUser(User user) throws UserDAOException {
         try {
-            ResourceBundle resource = ResourceBundle.getBundle("inquiry");
+            ResourceBundle resource = ResourceBundle.getBundle("inquery");
             String query = resource.getString("DELETE_USER");
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, user.getId());
@@ -65,7 +65,7 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
     public User findByEmail(String email) throws DAOException {
         User user;
         try {
-            ResourceBundle resource = ResourceBundle.getBundle("inquiry");
+            ResourceBundle resource = ResourceBundle.getBundle("inquery");
             String query = resource.getString("USER_GET_BY_EMAIL");
             EntityFactory<User> factory = new EntityFactory<>();
             PreparedStatement statement = connection.prepareStatement(query);

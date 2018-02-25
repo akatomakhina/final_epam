@@ -44,7 +44,7 @@ body{
 }
 .menu__container{
 	background: #f3f3f3;
-	width: 100%
+	width: 100%;
 	margin: 0 auto;
 	overflow: hidden;
 }
@@ -119,7 +119,6 @@ body{
 }
 
 .header__center{
-	background-color: blue;
 	width: 20%;
 	height: 0%;
 	margin: 0 auto;
@@ -145,7 +144,7 @@ body{
 }
 .menu__item {
 	float: left;
-	padding: 18px 50px 18px 50px;
+	padding: 18px 34px 18px 34px;
 	font-size: 20px;
 	position: relative;
 }

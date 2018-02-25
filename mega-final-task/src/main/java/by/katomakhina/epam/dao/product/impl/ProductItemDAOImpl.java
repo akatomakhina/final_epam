@@ -101,7 +101,7 @@ public class ProductItemDAOImpl extends IdDAOImpl implements ProductItemDAO {
     @Override
     public int findAmountByProductWarehouse(int idProduct) throws DAOException {
         try {
-            ResourceBundle resource = ResourceBundle.getBundle("inquiry");
+            ResourceBundle resource = ResourceBundle.getBundle("inquery");
             String query = resource.getString("ITEM_GET_QUANTITY");
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, idProduct);

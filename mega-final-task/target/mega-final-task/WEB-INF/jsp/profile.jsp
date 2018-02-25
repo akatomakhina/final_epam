@@ -83,7 +83,7 @@
 
                     <c:if test="${loggedUserRole.equals('Admin')&&user.role.equals('User')}">
                         <div class="delete__user shift">
-                            <a href="<c:url value="/nastichka/delete-user?id=${user.id}"/>">${deleteUser}</a>
+                            <a href="<c:url value="/nk/delete-user?id=${user.id}"/>">${deleteUser}</a>
                         </div>
                     </c:if>
                 </div>

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "LoginFilter", urlPatterns = "/nastichka/login-page")
+@WebFilter(filterName = "LoginFilter", urlPatterns = "/nk/login-page")
 public class LoginFilter implements Filter {
     private static final Logger Logger = LogManager.getLogger(LoginFilter.class);
 

@@ -51,7 +51,7 @@
                         <td class="text-left">${secondName} <c:out value="${user.lastName}"/></td>
                         <td class="text-left">${login} <c:out value="${user.login}"/></td>
                         <td class="text-left">${roleLabel} <c:out value="${user.role}"/></td>
-                        <td class="text-left"><a href="<c:url value="/nastichka/delete-user?id=${user.id}"/>">${deleteUser}</a></td>
+                        <td class="text-left"><a href="<c:url value="/nk/delete-user?id=${user.id}"/>">${deleteUser}</a></td>
                     </tr>
                     </tbody>
                 </c:forEach>

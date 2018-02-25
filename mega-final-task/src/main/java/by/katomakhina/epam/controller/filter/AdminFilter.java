@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "AdminFilter", urlPatterns = "/nastichka/admin-page")
+@WebFilter(filterName = "AdminFilter", urlPatterns = "/nk/admin-page")
 public class AdminFilter implements Filter {
     private static final Logger Logger = LogManager.getLogger(AdminFilter.class);
 

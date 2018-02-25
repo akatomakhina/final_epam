@@ -12,7 +12,7 @@ import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
 import java.util.Locale;
 
-@WebFilter(filterName = "LocaleFilter", urlPatterns = "/nastichka/*")
+@WebFilter(filterName = "LocaleFilter", urlPatterns = "/nk/*")
 public class LocaleFilter implements Filter {
     private static final Logger Logger = LogManager.getLogger(LocaleFilter.class);
 

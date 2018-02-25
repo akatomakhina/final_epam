@@ -7,8 +7,8 @@ public class User extends Id implements Serializable{
     private String firstName;
     private String lastName;
     private String login;
-    private String password;
     private String email;
+    private String password;
     private boolean banned;
     private double balance;
     private String role;

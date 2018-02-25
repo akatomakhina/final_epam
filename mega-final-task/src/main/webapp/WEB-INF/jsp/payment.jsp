@@ -55,7 +55,7 @@
                  ${totalAmount}: <fmt:formatNumber value="${orderTotalAmount}" type="currency" currencySymbol="$"/>
             </div>
 
-            <form id="simplify-payment-form" action="<c:url value="/nastichka/payment"/>" method="POST">
+            <form id="simplify-payment-form" action="<c:url value="/nk/payment"/>" method="POST">
                 <div class="payment__add payment__cart-number">
                     ${add} <span class="weight">${cardNumber}</span>:
                     <input placeholder="${cardNumber}" type="text" name="cc-number" class="payment__input" maxlength="20" autocomplete="off" value="ex:4222222222222" autofocus>
@@ -109,7 +109,7 @@
 
             <c:remove var="userBalance"/>
             <c:if test="${not empty allowBalance}">
-            <form action="<c:url value="/nastichka/payment"/>" method="POST">
+            <form action="<c:url value="/nk/payment"/>" method="POST">
                 <input type="hidden" name="byBalance" value="byBalance" class="payment-balance">
                 <input type="submit" class="payment__button" value="${payByBalance}">
             </form>

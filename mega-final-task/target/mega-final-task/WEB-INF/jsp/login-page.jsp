@@ -29,7 +29,7 @@
                             <p>${authorize}</p>
                         </div>
                         <div class="registration__form">
-                            <form action="<c:url value="/nastichka/login"/>" method="POST">
+                            <form action="<c:url value="/nk/login"/>" method="POST">
                                 <input type="text" name="email" class="registration__input" placeholder="${email}" required><br>
                                 <input type="password" <%--name="password"--%> class="registration__input" placeholder="${password}" required><br>
                                 <span class="error"> ${varLoginError}</span>
@@ -37,7 +37,7 @@
                             </form>
                         </div>
                         <div class="registration__reference">
-                            <a class="registration__reference__ref" href="<c:url value="/nastichka/register"/>">${registerLabel}</a>
+                            <a class="registration__reference__ref" href="<c:url value="/nk/register"/>">${registerLabel}</a>
                         </div>
                     </div>
                 </div>

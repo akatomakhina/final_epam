@@ -48,11 +48,11 @@ public class EntityFactory<T> {
                 user.setFirstName(set.getString("firstname"));
                 user.setLastName(set.getString("lastname"));
                 user.setLogin(set.getString("login"));
-                user.setPassword(set.getString("password"));
                 user.setEmail(set.getString("email"));
+                user.setRole(set.getString("role_name"));
+                user.setPassword(set.getString("password"));
                 user.setBanned(set.getBoolean("banned"));
                 user.setBalance(set.getDouble("balance"));
-                user.setRole(set.getString("role_name"));
             }
             return user;
         } catch (SQLException e) {

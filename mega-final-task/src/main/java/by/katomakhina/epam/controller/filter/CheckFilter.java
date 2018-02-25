@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "CheckFilter", urlPatterns = "/nastichka/check")
+@WebFilter(filterName = "CheckFilter", urlPatterns = "/nk/check")
 public class CheckFilter implements Filter {
     private static final Logger Logger = LogManager.getLogger(CheckFilter.class);
 

@@ -26,7 +26,7 @@
                  ${labelDate}: <fmt:formatDate value="${order.date}" type="both" dateStyle="medium" timeStyle="medium"/>
             </div>
             <div class="chek__email">
-                 ${labelEmail}: <a href="<c:url value="/nastichka/profile?id=${user.id}"/>">${user.email}</a>
+                 ${labelEmail}: <a href="<c:url value="/nk/profile?id=${user.id}"/>">${user.email}</a>
             </div>
 
             <table class="chek-table-fill">

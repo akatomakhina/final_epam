@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Servlet", urlPatterns = "/nastichka/*")
+@WebServlet(name = "Servlet", urlPatterns = "/nk/*")
 public class FrontController extends HttpServlet {
     private static final Logger Logger = LogManager.getLogger(FrontController.class);
 
@@ -36,8 +36,8 @@ public class FrontController extends HttpServlet {
             Logger.info("requested page name is " + inf.getName());
             isRedirect = inf.isRedirect();
             if (isRedirect) {
-                resp.sendRedirect(req.getContextPath() + "/nastichka/" + inf.getName());
-                Logger.info("redirect to {} is processed", req.getContextPath() + "/nastichka/" + inf.getName());
+                resp.sendRedirect(req.getContextPath() + "/nk/" + inf.getName());
+                Logger.info("redirect to {} is processed", req.getContextPath() + "/nk/" + inf.getName());
             } else {
                 String path = "/WEB-INF/jsp/" + inf.getName() + ".jsp";
                 req.getRequestDispatcher(path).forward(req, resp);
@@ -50,5 +50,4 @@ public class FrontController extends HttpServlet {
 
         }
     }
-
 }

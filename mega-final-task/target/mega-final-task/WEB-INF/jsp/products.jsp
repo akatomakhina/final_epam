@@ -98,8 +98,8 @@
                 <c:remove var="deleteMessage" scope="session"/>
                 <div class="catalog-sorting">
                     <c:if test="${empty emptyMsg}">
-                        <p><a href="<c:url value="/nastichka/change-order?sort-order=byName"/>">${sortByName}</a></p>
-                        <p><a href="<c:url value="/nastichka/change-order?sort-order=byPrice"/>">${sortByPrice}</a></p>
+                        <p><a href="<c:url value="/nk/change-order?sort-order=byName"/>">${sortByName}</a></p>
+                        <p><a href="<c:url value="/nk/change-order?sort-order=byPrice"/>">${sortByPrice}</a></p>
                     </c:if>
                 </div>
 
@@ -120,7 +120,7 @@
 
 
                 <div class="catalog-search">
-                    <form action="<c:url value="/nastichka/products"/>" method="GET">
+                    <form action="<c:url value="/nk/products"/>" method="GET">
                         <c:if test="${not empty param.category}">
                             <input type="hidden" name="category" value="${param.category}">
                         </c:if>
@@ -158,7 +158,7 @@
                                 <td class="text-left"><c:out value="${product.vendor}"/></td>
                                 <c:if test="${loggedUserRole.equals('Admin')}">
                                     <td class="text-left">
-                                        <form action="<c:url value="/nastichka/delete-product"/>" method="POST">
+                                        <form action="<c:url value="/nk/delete-product"/>" method="POST">
                                             <input type="hidden" name="productId" value="${product.id}"/>
                                             <input type="submit" name="name" class="catalog__delete__button" value="${deleteLabel}"/>
                                         </form>

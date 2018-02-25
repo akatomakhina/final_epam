@@ -48,7 +48,7 @@
                         <tr>
                             <td class="text-left">
                                 <div class="order-manager-date">
-                                    <a href="<c:url value="/nastichka/check?id=${order.id}"/>">
+                                    <a href="<c:url value="/nk/check?id=${order.id}"/>">
                                         <fmt:formatDate value="${order.date}" type="both" dateStyle="medium" timeStyle="medium"/>
                                     </a>
                                 </div>
@@ -58,12 +58,12 @@
 
                             <td class="text-left">
                                 <div class="order-manager-user">
-                                    <a href="<c:url value="/nastichka/profile?id=${order.userId}"/>">${user}</a>
+                                    <a href="<c:url value="/nk/profile?id=${order.userId}"/>">${user}</a>
                                 </div>
                             </td>
 
                             <td class="text-left">
-                                <form action="<c:url value="/nastichka/change-status?order=${order.id}"/>" method="POST">
+                                <form action="<c:url value="/nk/change-status?order=${order.id}"/>" method="POST">
                                     <p><select name="status" class="order-manager__list" onchange="this.form.submit()">
                                         <option disabled="" selected="">${statusLabel}</option>
                                         <c:forEach items="${statusList}" var="item">

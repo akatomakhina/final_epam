@@ -82,7 +82,7 @@ public abstract class IdDAOImpl implements IdDAO {
 
     @Override
     public String getQuery(String key) {
-        ResourceBundle bundle = ResourceBundle.getBundle("inquiry");
+        ResourceBundle bundle = ResourceBundle.getBundle("inquery");
         return bundle.getString(key);
     }
 }

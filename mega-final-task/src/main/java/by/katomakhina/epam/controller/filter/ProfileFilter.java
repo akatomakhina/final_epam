@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "ProfileFilter", urlPatterns = "/nastichka/profile")
+@WebFilter(filterName = "ProfileFilter", urlPatterns = "/nk/profile")
 public class ProfileFilter implements Filter {
 
     private static final Logger Logger = LogManager.getLogger(ProfileFilter.class);

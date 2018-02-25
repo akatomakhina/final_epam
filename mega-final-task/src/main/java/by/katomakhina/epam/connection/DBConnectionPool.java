@@ -17,7 +17,7 @@ public class DBConnectionPool {
 
     private final static Logger logger = LogManager.getLogger(DBConnectionPool.class);
 
-    private BlockingQueue<Connection> connection_queue = new ArrayBlockingQueue<>(ConstantConnection.CONNECTION_LIMIT);
+    private BlockingQueue<Connection> connection_queue = new ArrayBlockingQueue<>(20);
 
     private Server server;
     private Connection connection;
@@ -26,17 +26,30 @@ public class DBConnectionPool {
     }
 
 
+    public void startServer() throws ConnectionPoolException {
+        try {
+            Driver.load();
+            server = Server.createTcpServer();
+            server.start();
+        } catch (Exception e) {
+            logger.error("Cannot register driver", e);
+            e.printStackTrace();
+            throw new ConnectionPoolException("Cannot initialize driver");
+        }
+    }
+
+
     public Connection getConnection() throws ConnectionPoolException {
         try {
             if (!connection_queue.isEmpty()) {
                 while (!connection_queue.isEmpty()) {
                     connection = connection_queue.peek();
-                    if (connection.isValid(500)) {
+                    if (connection.isValid(1000)) {
                         return connection;
                     }
                 }
             } else {
-                connection = DriverManager.getConnection(ConstantConnection.URL, ConstantConnection.USERNAME, ConstantConnection.PASSWORD);
+                connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/mega-final-task", "root", "root");
                 if (isFreeConnection(connection)) {
                     connection_queue.add(connection);
                 }
@@ -72,17 +85,7 @@ public class DBConnectionPool {
         }
     }
 
-    public void startServer() throws ConnectionPoolException {
-        try {
-            Driver.load();
-            server = Server.createTcpServer();
-            server.start();
-        } catch (Exception e) {
-            logger.error("Cannot register driver", e);
-            e.printStackTrace();
-            throw new ConnectionPoolException("Cannot initialize driver");
-        }
-    }
+
 
     public void stopServer() {
         try {

@@ -43,7 +43,7 @@
             <div class="catalog-manager-title">
                  ${addNewProductLabel}
             </div>
-            <form action="<c:url value="/nastichka/create-product"/>" method="POST">
+            <form action="<c:url value="/nk/create-product"/>" method="POST">
                 <div class="catalog__add catalog-manager__name">
                     ${add} <span class="weight">${nameLabel}</span>:
                     <input placeholder="${nameLabel}" type="text" name="name" class="catalog-manager__input">

@@ -21,6 +21,9 @@
 
     <fmt:message key="base.nav.myOrders" var="myOrders"/>
     <fmt:message key="base.nav.myCart" var="myCart"/>
+
+    <fmt:message key="home.footer.up" var="up"/>
+    <fmt:message key="home.footer.down" var="down"/>
 </fmt:bundle>
 
 <html lang="${language}">
@@ -36,9 +39,6 @@
 </head>
 
 <body>
-    <%--<li class="icon">
-        <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
-    </li>--%>
 
 <div class="wrapper">
 
@@ -48,18 +48,17 @@
                 <a class="logo__href" href="home_page.html"></a>
             </div>
             <ul class="header__language">
-                <li class="language__item"><a href="<c:url value="/nastichka/locale?lang=en"/>">RU</a></li>
-                <li class="language__item"><a href="<c:url value="/nastichka/locale?lang=ru"/>">EN</a></li>
+                <li class="language__item"><a href="<c:url value="/nk/locale?lang=ru"/>">RU</a></li>
+                <li class="language__item"><a href="<c:url value="/nk/locale?lang=en"/>">EN</a></li>
             </ul>
 
 
             <c:if test="${empty loggedUserRole&&empty lock}">
-                <form action="<c:url value="/nastichka/login"/>" method="POST">
+                <form action="<c:url value="/nk/login"/>" method="POST">
                     <div class="header__center">
 
                         <input type="text" name="email" class="header__registration__input" placeholder="Email" required>
                         <span class="error"><br/></span>
-                        <%--<br>--%>
 
                         <input type="password" name="password" class="header__registration__input" placeholder="Пароль" required>
                         <span class="error">${loginError}</span>
@@ -77,7 +76,7 @@
                     </br>
                     </br>
 
-                <form action="<c:url value="/nastichka/register"/>">
+                <form action="<c:url value="/nk/register"/>">
 
                     <div class="header__right__registration">
                         <input type="submit" class="header__registration__button" value="${registerLabel}"/>
@@ -88,7 +87,7 @@
 
             <div class="header__right">
                 <c:if test="${not empty userId}">
-                    <p><a href="<c:url value="/nastichka/logout"/>">${logout}</a></p>
+                    <p><a href="<c:url value="/nk/logout"/>">${logout}</a></p>
                 </c:if>
             </div>
         </div>
@@ -97,8 +96,8 @@
 
     <div class = "menu__container">
         <ul class="menu">
-            <li class="menu__item"><p><a class="main__href" href="<c:url value="/nastichka/home-page"/>"><b>${home}</b></a></p></li>
-            <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nastichka/catalog"/>">${catalog}</a></p>
+            <li class="menu__item"><p><a class="main__href" href="<c:url value="/nk/home-page"/>"><b>${home}</b></a></p></li>
+            <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/products"/>">${catalog}</a></p>
                 <ul class="sub__menu">
                     <li> <p><a href="#">Товары для детей</a></p> </li>
                     <li> <p><a href="#">Техника</a></p> </li>
@@ -110,13 +109,20 @@
             </li>
 
             <c:if test="${not empty userId}">
-                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nastichka/profile?id=${userId}"/>">${myProfile}</a></p></li>
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/profile?id=${userId}"/>">${myProfile}</a></p></li>
             </c:if>
 
             <c:if test="${loggedUserRole.equals('User')}">
-                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nastichka/orders"/>">${myOrders}</a></p></li>
-                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nastichka/basket"/>">${myCart}</a></p></li>
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/orders"/>">${myOrders}</a></p></li>
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/basket"/>">${myCart}</a></p></li>
             </c:if>
+
+            <c:if test="${loggedUser.role.equals('Admin')}">
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/catalog-manager"/>">${catalogManager}</a></p></li>
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/catalog-manager"/>">${catalogManager}</a></p></li>
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/admin-page"/>">${adminPage}</a></p></li>
+            </c:if>
+
         </ul>
     </div>
 
@@ -126,16 +132,6 @@
     </main>
 
 
-   <%-- <c:if test="${loggedUser.role.equals('Admin')}">
-        <a href="<c:url value="/nastichka/admin-page"/>">${adminPage}</a></br>
-        <a href="<c:url value="/nastichka/order-manager"/>">${orderManager}</a></br>
-        <a href="<c:url value="/nastichka/catalog-manager"/>">${catalogManager}</a></br>
-    </c:if>--%>
-
-
-    <%--<jsp:invoke fragment="sidebar"/>--%>
-
-
     <div class="footer">
         <div class="container">
             <div class="footer__left">
@@ -143,8 +139,8 @@
                 <p>+495 884-0005, info@shop.ru</p>
             </div>
             <div class="footer__right">
-                <p><a href="#">Политика конфеденциальности</a></p>
-                <p><a href="#">Условия использования</a></p>
+                <p><a href="#">${up}</a></p>
+                <p><a href="#">${down}</a></p>
             </div>
         </div>
     </div>

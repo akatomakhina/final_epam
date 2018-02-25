@@ -44,7 +44,7 @@ public abstract class ActionImpl implements Action {
 
     @Override
     public String getReferrerName(HttpServletRequest request) {
-        String name = request.getHeader("referrer").substring(25);
+        String name = request.getHeader("referer").substring(25);
         name = name.replace(".jsp", "");
         Logger.info("referrer name: " + name);
         return name;

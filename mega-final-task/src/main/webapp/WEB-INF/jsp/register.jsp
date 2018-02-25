@@ -3,7 +3,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:if test="${not empty userId}">
-    <c:redirect url="/nastichka/home-page"/>
+    <c:redirect url="/nk/home-page"/>
 </c:if>
 <fmt:bundle basename="i18n">
 
@@ -64,7 +64,7 @@
                         <div class="title">
                             <p>Пожалуйста, заполните форму регистрации</p>
                         </div>
-                        <form action="<c:url value="/nastichka/register"/>" method="POST">
+                        <form action="<c:url value="/nk/register"/>" method="POST">
                             <div class="registration__form">
                                 <input type="text" name="first name" class="registration__input" placeholder="${firstName}" required>
                                     <span class="error"> ${varFirstNameEmpty}<br/>${varInvalidFirstName}<br/></span>
