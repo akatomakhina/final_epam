@@ -1,7 +1,6 @@
 package by.katomakhina.epam.dao.order.impl;
 
 import by.katomakhina.epam.dao.exception.DAOException;
-import by.katomakhina.epam.dao.factory.EntityFactory;
 import by.katomakhina.epam.dao.id.impl.IdDAOImpl;
 import by.katomakhina.epam.dao.order.OrderDAO;
 import by.katomakhina.epam.entity.Order;

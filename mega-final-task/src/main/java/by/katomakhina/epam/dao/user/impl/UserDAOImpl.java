@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UserDAOImpl extends IdDAOImpl implements UserDAO {
+public class UserDAOImpl extends IdDAOImpl<User> implements UserDAO {
 
     private static final Logger Logger = LogManager.getLogger(UserDAOImpl.class);
 
@@ -81,7 +81,7 @@ public class UserDAOImpl extends IdDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAllUsers() throws UserDAOException { //!!!!!!!!!!! выражение напрямую
+    public List<User> getAllUsers() throws UserDAOException {
         List<User> users = new ArrayList<>();
         String query = getQuery("USER_GET_ALL");
         try {
