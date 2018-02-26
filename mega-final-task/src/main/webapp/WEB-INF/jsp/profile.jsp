@@ -19,8 +19,6 @@
     <fmt:message key="registration.label.loginLogin" var="login"/>
     <fmt:message key="user.label.addBalance" var="add"/>
 
-
-
     <c:if test="${not empty success}">
         <fmt:message key="user.label.success" var="successMsg"/>
     </c:if>
@@ -28,6 +26,9 @@
         <fmt:message key="user.label.invalidUpdate" var="invalidUpdateMsg"/>
     </c:if>
 </fmt:bundle>
+
+
+
 
 <t:genericpage>
     <jsp:attribute name="content">
@@ -93,6 +94,7 @@
                 <c:remove var="invalidUpdate" scope="session"></c:remove>
             </div>
         </div>
+
     </jsp:attribute>
 </t:genericpage>
 

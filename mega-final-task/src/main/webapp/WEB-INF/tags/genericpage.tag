@@ -60,7 +60,7 @@
                         <input type="text" name="email" class="header__registration__input" placeholder="Email" required>
                         <span class="error"><br/></span>
 
-                        <input type="password" name="password" class="header__registration__input" placeholder="Пароль" required>
+                        <input type="password" name="password" class="header__registration__input" placeholder="${password}" required>
                         <span class="error">${loginError}</span>
                         </br>
 
@@ -85,11 +85,12 @@
                  </form>
             </c:if>
 
-            <div class="header__right">
-                <c:if test="${not empty userId}">
-                    <p><a href="<c:url value="/nk/logout"/>">${logout}</a></p>
-                </c:if>
-            </div>
+
+            <c:if test="${not empty userId}">
+                <div class="header__right">
+                        <p><a href="<c:url value="/nk/logout"/>">${logout}</a></p>
+                </div>
+            </c:if>
         </div>
     </div>
 

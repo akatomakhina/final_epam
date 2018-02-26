@@ -37,7 +37,6 @@
     <jsp:attribute name="content">
 
 
-
                 <c:forEach items="${categories}" var="category">
                     <ul class="nav nav-list-main">
                         <li class="nav-divider">
@@ -58,34 +57,31 @@
                 </c:forEach>
 
 
+                <div class="container">
+                    <div class="subcatalog">
+                        <div class="subcatalog-title">
+                            ${categoriesLabel}
+                        </div>
 
-        <div class="container">
-            <div class="subcatalog">
-                <div class="subcatalog-title">
-                    ${categoriesLabel}
-                </div>
 
-
-                <c:forEach items="${categories}" var="category">
-                    <table class="sub-table">
-                        <thead>
-                            <tr>
-                                <th class="sub-table-name">${category.name}</th>
-                            </tr>
-                        </thead>
-                        <tbody class="sub-table-body">
-                        <c:forEach items="${category.subCategories}" var="subcategory">
-                            <tr>
-                                <td class="sub-string"><p><a href="/do/products?category=${subcategory.id}">${subcategory.name}</a></p></td>
-                            </tr>
+                        <c:forEach items="${categories}" var="category">
+                            <table class="sub-table">
+                                <thead>
+                                    <tr>
+                                        <th class="sub-table-name">${category.name}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="sub-table-body">
+                                <c:forEach items="${category.subCategories}" var="subcategory">
+                                    <tr>
+                                        <td class="sub-string"><p><a href="/do/products?category=${subcategory.id}">${subcategory.name}</a></p></td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                            <div class="sub-catalog__line"></div>
                         </c:forEach>
-                        </tbody>
-                    </table>
-                    <div class="sub-catalog__line"></div>
-                </c:forEach>
-            </div>
-
-
+                    </div>
 
 
 
@@ -105,7 +101,6 @@
 
 
 
-
                 <c:if test="${not empty subcategory}">
                     <div class="catalog-subcatalog">
                         ${categoryLabel}: ${subcategory}
@@ -115,7 +110,6 @@
                 <c:if test="${empty subcategory}">
 
                 </c:if>
-
 
 
 
@@ -151,7 +145,7 @@
                         <c:forEach items="${productList}" var="product">
                             <tr>
                                 <td class="text-left">
-                                    <a href="product-page?id=${product.id}"><c:out value="${product.name}"/></a>
+                                    <a href="product-page?id=${product.id}"><c:out value="${product.title}"/></a>
                                 </td>
                                 <td class="text-left">${price} <fmt:formatNumber value="${product.price}" type="currency" currencySymbol="$"/></td>
                                 <td class="text-left"><c:out value="${product.description}"/></td>

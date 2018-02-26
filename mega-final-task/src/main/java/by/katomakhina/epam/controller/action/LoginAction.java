@@ -24,7 +24,7 @@ public class LoginAction extends ActionImpl {
         UserServiceImpl userService = new UserServiceImpl();
         User user;
         View redirectToReferrer = new View(getReferrerName(request), ActionConstant.REDIRECT);
-        boolean isValidPair = userService.isEmailExist(email) && userService.isValidPair(email, password);
+        boolean isValidPair = (userService.isEmailExist(email) && userService.isValidPair(email, password));
         if (isValidPair) {
             user = userService.getUserByEmail(email);
             request.getSession(false).setAttribute("loggedUser", user);

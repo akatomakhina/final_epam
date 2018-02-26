@@ -18,7 +18,7 @@ public abstract class IdDAOImpl implements IdDAO {
 
     public Connection connection;
 
-    @Override
+    /*@Override*/
     public Id findById(int id, Class aClass) throws DAOException {
         Id object;
         try {
@@ -68,17 +68,6 @@ public abstract class IdDAOImpl implements IdDAO {
         }
     }
 
-    /*@Override
-    public void closeResultSet(ResultSet resultSet) {
-        try {
-            resultSet.close();
-        } catch (SQLException e) {
-            Logger.error("Cannot close result set", e);
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            Logger.error("Connection is null");
-        }
-    }*/
 
     @Override
     public String getQuery(String key) {

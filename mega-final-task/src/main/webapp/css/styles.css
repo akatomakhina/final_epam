@@ -99,7 +99,20 @@ body{
 	color: #b4b4b4;
 	text-decoration: none;
 }
-
+.header__right {
+	float: right;
+	width: 20%;
+	text-align: right;
+	margin-top: 7px;
+}
+.header__right > p{
+	padding-bottom: 13px;
+	font-size: 17px;
+}
+.header__right > p > a{
+	color: #b4b4b4;
+	text-decoration: none;
+}
 .header__right__login, .header__right__registration{
 	display: inline;
 	float: right;
