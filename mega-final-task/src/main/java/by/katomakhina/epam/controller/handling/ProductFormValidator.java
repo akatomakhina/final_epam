@@ -31,7 +31,7 @@ public class ProductFormValidator extends ValidatorImpl {
             messages.add("invalidPrice");
         }
         if (isInteger(request, "quantity") && amount.length() < STRING_LIMIT) {
-            Integer amountInt = Integer.parseInt(request.getParameter("amount"));
+            Integer amountInt = Integer.parseInt(request.getParameter("quantity"));
             if (amountInt <= 0) {
                 messages.add("invalidQuantity");
             }

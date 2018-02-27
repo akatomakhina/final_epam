@@ -48,6 +48,13 @@ body{
 	margin: 0 auto;
 	overflow: hidden;
 }
+.catalog-manager-container{
+	width: 55%;
+	height: 750px;
+	margin: 0 auto;
+	padding: 25px 0;
+	overflow: hidden;
+}
 .weight{
 	font-weight: 600;
 }
@@ -157,7 +164,7 @@ body{
 }
 .menu__item {
 	float: left;
-	padding: 18px 34px 18px 34px;
+	padding: 18px 25px 18px 25px;
 	font-size: 20px;
 	position: relative;
 }
@@ -1027,9 +1034,9 @@ body{
 	width: 70px;
 	height: 70px;
 }
-.product{
+/*.product{
 	height: 500px;
-}
+}*/
 .product__title{
 	font-size: 30px;
 	font-weight: 400;
@@ -1040,13 +1047,13 @@ body{
 }
 .product__paragraph-left{
 	float: left;
-	width: 365px;
+	width: 80%;
 	margin: 40px 0 0 180px;
 }
 
-.product__admin{
+/*.product__admin{
 	height: 600px;
-}
+}*/
 .paragraph__admin{
 	margin: 0 0 30px 0;
 	font-size: 20px;
@@ -1087,7 +1094,6 @@ body{
 }
 
 .payment__basket{
-	height: 320px;
 	float: left;
 	width: 45%;
 	margin: 40px 0 0 410px;
@@ -1103,7 +1109,7 @@ body{
 	border-radius: 4px;
 	height: 37px;
 	width: 260px;
-	margin: 10px 0;
+	margin: 10px 0 30px 0;
 }
 .payment__basket__button{
 	font-family: RobotoCondensed-Regular;
@@ -1391,13 +1397,6 @@ body{
 	text-decoration: none;
 	color: #1F2323;
 }
-.label-success{
-	margin-top: 8%;
-	font-size: 26px;
-	padding: 15px 0 6px 0;
-	color: #1F2323;
-	font-family: RobotoCondensed-Regular;
-}
 
 
 
@@ -1552,10 +1551,6 @@ body{
 
 
 /*CATALOG--MANAGER*/
-.catalog-manager{
-	width: 45%;
-	height: 550px;
-}
 .catalog-manager-title{
 	font-family: Oswald-Medium;
 	color: #1F2323;
@@ -1667,4 +1662,25 @@ body{
 	margin-top: 20px;
 	padding: 20px 0;
 	color: #1F2323;
+}
+
+
+
+/*PAGINATOR*/
+.paginator{
+	font-size: 22px;
+	margin-top: 10%;
+	font-family: Montserrat-Light;
+
+}
+td> a{
+	text-decoration: none;
+	color: #1F2323;
+}
+.label-success{
+	margin-top: 8%;
+	font-size: 26px;
+	padding: 15px 0 6px 0;
+	color: #1F2323;
+	font-family: RobotoCondensed-Regular;
 }

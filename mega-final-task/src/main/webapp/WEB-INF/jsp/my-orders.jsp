@@ -48,11 +48,11 @@
                             </tbody>
                         </c:forEach>
                     </table>
-                    <table>
+                    <table class="paginator">
                         <tr>
-                            <c:forEach items="${pagesList}" var="page">
-                                <td><a href="my-orders?page=${page}">${page} </a></td>
-                            </c:forEach>
+		                    <c:forEach items="${pagesList}" var="page">
+		                        <td><a href="products?page=${page}">${page} </a></td>
+		                    </c:forEach>
                         </tr>
                     </table>
                 </c:if>

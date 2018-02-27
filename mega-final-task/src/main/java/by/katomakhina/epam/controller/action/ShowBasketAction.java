@@ -21,7 +21,7 @@ public class ShowBasketAction extends ActionImpl {
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         View view;
         if (isUser(request)) {
-            Integer idUser = (int) request.getSession().getAttribute("idUser");
+            Integer idUser = (int) request.getSession().getAttribute("userId");
             List<ProductItem> productItem = ActionConstant.PRODUCT_SERVICE.getBasketByUserId(idUser);
 
             double totalAmount = ActionConstant.ORDER_SERVICE.getTotalAmount(productItem);
@@ -33,7 +33,7 @@ public class ShowBasketAction extends ActionImpl {
                 request.setAttribute("emptyMessage", "There are no items in the basket");
                 Logger.info("There are no items in the basket");
             }
-            view = new View("basket");
+            view = new View("cart");
 
         }else if (!isAuthorized(request)){
             view = new View("login-page", ActionConstant.REDIRECT);

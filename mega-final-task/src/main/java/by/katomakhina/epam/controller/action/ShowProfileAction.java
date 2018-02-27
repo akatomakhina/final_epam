@@ -34,6 +34,8 @@ public class ShowProfileAction extends ActionImpl {
         }
         User user = ActionConstant.USER_SERVICE.getUserById(idUser);
         request.setAttribute("user", user);
+        request.setAttribute("firstName", user.getFirstName());
+        System.out.println(user);
         return new View("profile");
     }
 }

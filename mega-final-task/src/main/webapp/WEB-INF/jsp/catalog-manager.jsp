@@ -39,7 +39,7 @@
 <t:genericpage>
     <jsp:attribute name="content">
 
-        <div class="catalog-manager container">
+        <div class="catalog-manager-container">
             <div class="catalog-manager-title">
                  ${addNewProductLabel}
             </div>
@@ -78,19 +78,22 @@
                     <input placeholder="${vendor}" name="vendor" type="text" class="catalog-manager__input">
                 </div>
 
+
+
                 <div class="catalog__add catalog-manager__catalog">
                     ${add} <span class="weight">${categoryLabel}</span>:
                     <select name="category" class="catalog-manager__list">
                         <c:forEach items="${categories}" var="category">
                             <option disabled="" selected="">${selectCategory}</option>
                             <optgroup label="${category.name}" class="catalog">
-                                <c:forEach items="${category.subCategories}" var="subcategory">
+                                <c:forEach items="${category.subCatalog}" var="subcategory">
                                     <option value="${subcategory.id}">${subcategory.name}</option>
                                 </c:forEach>
                             </optgroup>
                         </c:forEach>
                     </select>
                 </div>
+
 
                 <div class="label-success">
                         ${successUpdateMsg}

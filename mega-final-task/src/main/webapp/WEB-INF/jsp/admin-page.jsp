@@ -53,12 +53,16 @@
                         <td class="text-left">${roleLabel} <c:out value="${user.role}"/></td>
                         <td class="text-left"><a href="<c:url value="/nk/delete-user?id=${user.id}"/>">${deleteUser}</a></td>
                     </tr>
+                    </c:forEach>
                     </tbody>
-                </c:forEach>
             </table>
-            <c:forEach items="${pagesList}" var="page">
-                <td><a href="admin-page?page=${page}">${page} </a></td>
-            </c:forEach>
+            <table class="paginator">
+                <tr>
+		            <c:forEach items="${pagesList}" var="page">
+		                <td><a href="products?page=${page}">${page} </a></td>
+		            </c:forEach>
+                </tr>
+            </table>
         </div>
 
     </jsp:attribute>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+
+        <RollingFile name="File" fileName="log/log.txt"
+                     filePattern="log/$${date:yyyy-MM}/app-%d{yyyy-MM-dd-HH-mm}-%i.txt"><!--файл ротируется раз в минуту-->
+            <PatternLayout> <!--Вывод-->
+                <Pattern>%d{HH:mm:ss.SSS} [%-5level] - [%logger{36}] - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <!--<OnStartupTriggeringPolicy />--><!--При каждой загрузке новый файл-->
+                <SizeBasedTriggeringPolicy size="10 MB" /><!--Максимальный размер файла-->
+                <TimeBasedTriggeringPolicy interval="10" modulate="true"/><!--каждые 2 мин (смотрит filePattern) новый файл-->
+            </Policies>
+            <DefaultRolloverStrategy max="4"/> <!--Сколько файлов ротирует -->
+
+        </RollingFile>
+        <Console name="Console" target="SYSTEM_OUT"> <!--Вывод-->
+            <PatternLayout pattern="[%d{HH:mm:ss.SSS}] - [%-5level] - [%logger{36}] - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+        <Root level="warn">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+        <Root level="trace">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>

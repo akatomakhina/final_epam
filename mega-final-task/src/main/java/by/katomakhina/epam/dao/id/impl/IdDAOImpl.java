@@ -22,7 +22,7 @@ public abstract class IdDAOImpl implements IdDAO {
     public Id findById(int id, Class aClass) throws DAOException {
         Id object;
         try {
-            ResourceBundle resource = ResourceBundle.getBundle("inquiry");
+            ResourceBundle resource = ResourceBundle.getBundle("inquery");
             String key = aClass.getSimpleName().toUpperCase() + "_GET_BY_ID";
             String query = resource.getString(key);
             PreparedStatement statement = connection.prepareStatement(query);
@@ -70,7 +70,7 @@ public abstract class IdDAOImpl implements IdDAO {
 
     @Override
     public String getQuery(String key) {
-        ResourceBundle bundle = ResourceBundle.getBundle("inquiry");
+        ResourceBundle bundle = ResourceBundle.getBundle("inquery");
         return bundle.getString(key);
     }
 }

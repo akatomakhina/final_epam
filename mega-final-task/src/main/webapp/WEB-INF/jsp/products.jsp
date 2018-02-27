@@ -52,7 +52,7 @@
                                         <a href="/do/products?category=${subcategory.id}">${subcategory.name}</a>
                                     </li>
 		                        </c:forEach>
-                        </li>
+                                </li>
                             </ul>
                 </c:forEach>
 
@@ -60,16 +60,16 @@
                 <div class="container">
                     <div class="subcatalog">
                         <div class="subcatalog-title">
-                            ${categoriesLabel}
+                                ${categoriesLabel}
                         </div>
 
 
                         <c:forEach items="${categories}" var="category">
                             <table class="sub-table">
                                 <thead>
-                                    <tr>
-                                        <th class="sub-table-name">${category.name}</th>
-                                    </tr>
+                                <tr>
+                                    <th class="sub-table-name">${category.name}</th>
+                                </tr>
                                 </thead>
                                 <tbody class="sub-table-body">
                                 <c:forEach items="${category.subCategories}" var="subcategory">
@@ -85,50 +85,50 @@
 
 
 
-            <div class="catalog-table">
-                <div class="catalog-title">
-                     ${productListLabel}
-                </div>
-                </br>
-                <span class="label-info">${varEmptyMessage}</span></br><span class="label-success">${deleteMessage}</span>
-                <c:remove var="deleteMessage" scope="session"/>
-                <div class="catalog-sorting">
+                    <div class="catalog-table">
+                        <div class="catalog-title">
+                                ${productListLabel}
+                        </div>
+                        </br>
+                        <span class="label-info">${varEmptyMessage}</span></br><span class="label-success">${deleteMessage}</span>
+                        <c:remove var="deleteMessage" scope="session"/>
+                        <div class="catalog-sorting">
                     <c:if test="${empty emptyMsg}">
                         <p><a href="<c:url value="/nk/change-order?sort-order=byName"/>">${sortByName}</a></p>
                         <p><a href="<c:url value="/nk/change-order?sort-order=byPrice"/>">${sortByPrice}</a></p>
                     </c:if>
-                </div>
+                        </div>
 
 
 
-                <c:if test="${not empty subcategory}">
+                        <c:if test="${not empty subcategory}">
                     <div class="catalog-subcatalog">
-                        ${categoryLabel}: ${subcategory}
+                            ${categoryLabel}: ${subcategory}
                     </div>
                 </c:if>
 
-                <c:if test="${empty subcategory}">
+                        <c:if test="${empty subcategory}">
 
                 </c:if>
 
 
 
-                <div class="catalog-search">
-                    <form action="<c:url value="/nk/products"/>" method="GET">
+                        <div class="catalog-search">
+                            <form action="<c:url value="/nk/products"/>" method="GET">
                         <c:if test="${not empty param.category}">
                             <input type="hidden" name="category" value="${param.category}">
                         </c:if>
-                        <input name="search" class="catalog__input" placeholder="${searchLabel}">
-                        <input type="submit" class="catalog__button" value="${searchLabel}">
-                    </form>
-                    <c:if test="${not empty searchQuery}">
+                                <input name="search" class="catalog__input" placeholder="${searchLabel}">
+                                <input type="submit" class="catalog__button" value="${searchLabel}">
+                            </form>
+                            <c:if test="${not empty searchQuery}">
                         ${searchResult}: ${searchQuery}</br>
                     </c:if>
-                </div>
+                        </div>
 
 
 
-                <c:if test="${empty emptyMsg}">
+                        <c:if test="${empty emptyMsg}">
                     <table class="table-fill">
                         <thead>
                         <tr>
@@ -170,11 +170,9 @@
                         </tr>
                     </table>
                 </c:if>
-            </div>
-        </div>
+                    </div>
+                </div>
 
 
   </jsp:attribute>
 </t:genericpage>
-
-

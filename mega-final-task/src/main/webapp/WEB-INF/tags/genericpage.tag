@@ -21,6 +21,8 @@
 
     <fmt:message key="base.nav.myOrders" var="myOrders"/>
     <fmt:message key="base.nav.myCart" var="myCart"/>
+    <fmt:message key="base.nav.userOrders" var="userOrders"/>
+    <fmt:message key="base.nav.adminCatalog" var="adminCatalog"/>
 
     <fmt:message key="home.footer.up" var="up"/>
     <fmt:message key="home.footer.down" var="down"/>
@@ -98,29 +100,20 @@
     <div class = "menu__container">
         <ul class="menu">
             <li class="menu__item"><p><a class="main__href" href="<c:url value="/nk/home-page"/>"><b>${home}</b></a></p></li>
-            <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/products"/>">${catalog}</a></p>
-                <ul class="sub__menu">
-                    <li> <p><a href="#">Товары для детей</a></p> </li>
-                    <li> <p><a href="#">Техника</a></p> </li>
-                    <li> <p><a href="#">Аксессуары</a></p> </li>
-                    <li> <p><a href="#">Одежда для женщин</a></p> </li>
-                    <li> <p><a href="#">Одежда для мужчин</a></p> </li>
-                    <li> <p><a href="#">Обувь</a></p> </li>
-                </ul>
-            </li>
+            <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/products"/>">${catalog}</a></p></li>
 
             <c:if test="${not empty userId}">
                 <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/profile?id=${userId}"/>">${myProfile}</a></p></li>
             </c:if>
 
             <c:if test="${loggedUserRole.equals('User')}">
-                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/orders"/>">${myOrders}</a></p></li>
-                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/basket"/>">${myCart}</a></p></li>
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/my-orders"/>">${myOrders}</a></p></li>
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/cart"/>">${myCart}</a></p></li>
             </c:if>
 
             <c:if test="${loggedUser.role.equals('Admin')}">
-                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/catalog-manager"/>">${catalogManager}</a></p></li>
-                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/catalog-manager"/>">${catalogManager}</a></p></li>
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/order-manager"/>">${userOrders}</a></p></li>
+                <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/catalog-manager"/>">${adminCatalog}</a></p></li>
                 <li class="menu__item"><p><a class="oder__href" href="<c:url value="/nk/admin-page"/>">${adminPage}</a></p></li>
             </c:if>
 

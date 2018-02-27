@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UserDAOImpl extends IdDAOImpl<User> implements UserDAO {
+public class UserDAOImpl extends IdDAOImpl implements UserDAO {
 
     private static final Logger Logger = LogManager.getLogger(UserDAOImpl.class);
 
@@ -91,11 +91,11 @@ public class UserDAOImpl extends IdDAOImpl<User> implements UserDAO {
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getInt("id_client"));
-                user.setFirstName(resultSet.getString("first_name"));
-                user.setLastName(resultSet.getString("last_name"));
+                user.setFirstName(resultSet.getString("firstname"));
+                user.setLastName(resultSet.getString("lastname"));
                 user.setLogin(resultSet.getString("login"));
                 user.setEmail(resultSet.getString("email"));
-                user.setRole(resultSet.getString("role_name"));
+                user.setRole(resultSet.getString("name"));
                 users.add(user);
             }
             return users;

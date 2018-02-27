@@ -42,39 +42,39 @@
                     <div class="paragraph">
                         <div class="sprite profile__sprite">
                         </div>
-                        <p><span class="weight">${first}</span> ${name}: ${user.firstName}</p>
+                        <p><span class="weight">${first}</span> ${name}: ${requestScope.user.firstName}</p>
                     </div>
 
                     <div class="paragraph shift">
-                        <p><span class="weight">${last}</span> ${name}: ${user.lastName}</p>
+                        <p><span class="weight">${last}</span> ${name}: ${requestScope.user.lastName}</p>
                     </div>
 
                     <div class="paragraph">
                         <div class="sprite email__sprite">
                         </div>
-                        <p><span class="weight">${login}</span> ${user}: ${user.login}</p>
+                        <p><span class="weight">${login}</span> ${user}: ${requestScope.user.login}</p>
                     </div>
 
                     <div class="paragraph shift">
-                        <p><span class="weight">${email}</span> ${user}: ${user.email}</p>
+                        <p><span class="weight">${email}</span> ${user}: ${requestScope.user.email}</p>
                     </div>
 
-                    <c:if test="${loggedUserRole.equals('Admin') || userId == user.id}">
+                    <c:if test="${loggedUserRole.equals('Admin') || userId == requestScope.user.id}">
                         <div class="paragraph">
                             <div class="sprite balance__sprite">
                             </div>
                             <p><span class="weight">${balanceLabel}</span> ${user}:
-                                <fmt:formatNumber value="${user.balance}" type="currency" currencySymbol="$"/>
+                                <fmt:formatNumber value="${requestScope.user.balance}" type="currency" currencySymbol="$"/>
                             </p>
                         </div>
                     </c:if>
 
 
-                    <c:if test="${userId.equals(user.id)&&loggedUserRole.equals('User')}">
+                    <c:if test="${userId.equals(requestScope.user.id)&&loggedUserRole.equals('User')}">
                         <div class="balance__paragraph shift">
                             <p>${add} <span class="weight">${balanceLabel}</span>: </p>
                         </div>
-                        <form action="/nastichka/update-balance" method="POST">
+                        <form action="/nk/update-balance" method="POST">
                             <div class="balance__input shift">
                                 <input type="number" name="balance" class="balance__registration__input"><br>
                                 <input type="submit" class="balance__button" value="${addFunds}">
@@ -82,9 +82,9 @@
                         </form>
                     </c:if>
 
-                    <c:if test="${loggedUserRole.equals('Admin')&&user.role.equals('User')}">
+                    <c:if test="${loggedUserRole.equals('Admin')&&requestScope.user.role.equals('User')}">
                         <div class="delete__user shift">
-                            <a href="<c:url value="/nk/delete-user?id=${user.id}"/>">${deleteUser}</a>
+                            <a href="<c:url value="/nk/delete-user?id=${requestScope.user.id}"/>">${deleteUser}</a>
                         </div>
                     </c:if>
                 </div>
