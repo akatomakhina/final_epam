@@ -22,13 +22,15 @@ public class UpdateProductAction extends ActionImpl {
         ProductFormValidator validator = new ProductFormValidator();
         if (validator.execute(request, true)) {
             String title = request.getParameter("name");
-            Integer price = Integer.parseInt(request.getParameter("price"));
+            Double price = Double.parseDouble(request.getParameter("price"));
             Integer amount = Integer.parseInt(request.getParameter("quantity"));
             String description = request.getParameter("description");
+            String vendor = request.getParameter("description");
             Integer catalog = Integer.parseInt(request.getParameter("category"));
             Product product = new Product();
             product.setId(idProduct);
             product.setDescription(description);
+            product.setVendor(vendor);
             product.setPrice(price);
             product.setTitle(title);
             product.setId_catalog(catalog);

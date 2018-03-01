@@ -12,8 +12,8 @@ public class Order extends Id implements Serializable {
     private Status status;
     private int idUser;
 
-    public Order() {
-    }
+    /*public Order() {
+    }*/
 
     public List<ProductItem> getProductItem() {
         return productItem;

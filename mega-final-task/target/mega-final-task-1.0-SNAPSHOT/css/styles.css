@@ -940,7 +940,7 @@ body{
 	margin-left: 15px;
 	background: #4D4F56;
 	height: 38px;
-	width: 130px;
+	width: 90px;
 	color: white;
 	font-size: 16px;
 	border-radius: 3px;
@@ -1034,9 +1034,6 @@ body{
 	width: 70px;
 	height: 70px;
 }
-/*.product{
-	height: 500px;
-}*/
 .product__title{
 	font-size: 30px;
 	font-weight: 400;
@@ -1047,13 +1044,9 @@ body{
 }
 .product__paragraph-left{
 	float: left;
-	width: 80%;
+	width: 365px;
 	margin: 40px 0 0 180px;
 }
-
-/*.product__admin{
-	height: 600px;
-}*/
 .paragraph__admin{
 	margin: 0 0 30px 0;
 	font-size: 20px;
@@ -1061,7 +1054,8 @@ body{
 .product__admin__paragraph-left{
 	float: left;
 	width: 530px;
-	margin: 40px 0 0 250px;
+	margin: 3% 0 0 27%;
+	padding-bottom: 5%;
 }
 .product__admin__input{
 	float: right;
@@ -1094,9 +1088,10 @@ body{
 }
 
 .payment__basket{
+	background-color: red;
 	float: left;
-	width: 45%;
-	margin: 40px 0 0 410px;
+	width: 60%;
+	margin: 3% 0 7% 27%;
 	font-size: 20px;
 }
 .payment__basket__inf{
@@ -1109,7 +1104,7 @@ body{
 	border-radius: 4px;
 	height: 37px;
 	width: 260px;
-	margin: 10px 0 30px 0;
+	margin: 10px 0;
 }
 .payment__basket__button{
 	font-family: RobotoCondensed-Regular;

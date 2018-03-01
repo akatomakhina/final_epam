@@ -48,7 +48,7 @@
                         <tr>
                             <td class="text-left">
                                 <div class="order-manager-date">
-                                    <a href="<c:url value="/nk/check?id=${order.id}"/>">
+                                    <a href="<c:url value="/nk/chek?id=${order.id}"/>">
                                         <fmt:formatDate value="${order.date}" type="both" dateStyle="medium" timeStyle="medium"/>
                                     </a>
                                 </div>

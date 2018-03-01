@@ -39,7 +39,7 @@ public class ActionFactory {
         actions.put("GET/catalog-manager", new ShowCatalogManagerAction());
         actions.put("GET/order-manager", new ShowOrderManager());
         actions.put("GET/my-orders", new ShowProfileOrdersAction());
-        actions.put("GET/check", new ShowCheckAction());
+        actions.put("GET/chek", new ShowCheckAction());
         actions.put("POST/change-status", new SetStatusAction());
         actions.put("GET/change-order", new ChangeSortOrderAction());
         actions.put("POST/delete-product", new DeleteFromCatalogAction());

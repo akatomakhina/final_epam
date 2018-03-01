@@ -16,7 +16,7 @@ public class EditBasketAction extends ActionImpl {
     @Override
     public View execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         View view;
-        View redirectToBasket = new View("basket", ActionConstant.REDIRECT);
+        View redirectToBasket = new View("cart", ActionConstant.REDIRECT);
         if (isUser(request)){
             try {
                 Integer basketItemId = Integer.parseInt(request.getParameter("cartItemId"));

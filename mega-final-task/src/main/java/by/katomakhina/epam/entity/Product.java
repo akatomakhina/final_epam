@@ -5,13 +5,13 @@ import java.util.Objects;
 
 public class Product extends Id implements Serializable {
     private String title;
+    private double price;
     private String description;
     private String vendor;
-    private double price;
     private int id_catalog;
 
-    public Product() {
-    }
+    /*public Product() {
+    }*/
 
     public String getTitle() {
         return title;

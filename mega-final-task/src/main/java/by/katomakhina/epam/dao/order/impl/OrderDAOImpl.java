@@ -99,7 +99,6 @@ public class OrderDAOImpl extends IdDAOImpl implements OrderDAO {
                 status.setName(resultSet.getString("name"));
                 order.setStatus(status);
                 orders.add(order);
-
             }
         } catch (SQLException e) {
             Logger.error("Cannot get all orders from base");

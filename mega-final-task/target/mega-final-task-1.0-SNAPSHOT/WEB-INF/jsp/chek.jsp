@@ -20,7 +20,7 @@
             </div>
 
             <div class="chek__summa">
-                 ${labelAmount}: <fmt:formatNumber value="${order.totalAmount}" type="currency" currencySymbol="$"/>
+                 ${labelAmount}: <fmt:formatNumber value="${order.amount}" type="currency" currencySymbol="$"/>
             </div>
             <div class="chek__date">
                  ${labelDate}: <fmt:formatDate value="${order.date}" type="both" dateStyle="medium" timeStyle="medium"/>
@@ -39,8 +39,8 @@
                 <tbody class="table-hover">
                 <c:forEach items="${items}" var="item">
                     <tr>
-                        <td class="text-left"><c:out value="${item.product.name}"/></td>
-                        <td class="text-left"><c:out value="${item.product.price}"/> x <c:out value="${item.quantity}"/></td>
+                        <td class="text-left"><c:out value="${item.product.title}"/></td>
+                        <td class="text-left"><c:out value="${item.product.price}"/> x <c:out value="${item.amount}"/></td>
                     </tr>
                 </c:forEach>
                 </tbody>

@@ -32,21 +32,23 @@
                             <th class="text-left">${item}</th>
                         </tr>
                         </thead>
-                        <c:forEach items="${orderList}" var="order">
+
                             <tbody class="table-hover">
+                            <c:forEach items="${orderList}" var="order">
                             <tr>
                                 <td class="text-left">
-                                    <a href="check?id=${order.id}">
+                                    <a href="chek?id=${order.id}">
                                         <fmt:formatDate value="${order.date}" type="both" dateStyle="medium" timeStyle="medium"/>
                                     </a>
                                 </td>
                                 <td class="text-left">
-                                    <fmt:formatNumber value="${order.totalAmount}" type="currency" currencySymbol="$"/>
+                                    <fmt:formatNumber value="${order.amount}" type="currency" currencySymbol="$"/>
                                 </td>
                                 <td class="text-left"><c:out value="${order.status.name}"/></td>
                             </tr>
+                            </c:forEach>
                             </tbody>
-                        </c:forEach>
+
                     </table>
                     <table class="paginator">
                         <tr>

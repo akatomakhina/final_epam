@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS catalog (
-  id_catalog INT NOT NULL,
+  id_catalog INT NOT NULL AUTO_INCREMENT,
   catalog_name VARCHAR(70) NOT NULL,
   parent INT,
   PRIMARY KEY (id_catalog)
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS shop_product (
 
 
 CREATE TABLE IF NOT EXISTS basket (
-  id_basket INT NOT NULL,
+  id_basket INT NOT NULL AUTO_INCREMENT,
   id_client INT NOT NULL,
   id_product INT NOT NULL,
   amount INT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS basket (
 
 
 CREATE TABLE IF NOT EXISTS warehouse(
-  id_wrehouse INT NOT NULL,
+  id_wrehouse INT NOT NULL AUTO_INCREMENT,
   id_product INT NOT NULL,
   amount INT NULL,
   PRIMARY KEY (id_wrehouse, id_product),
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS warehouse(
 
 
 CREATE TABLE IF NOT EXISTS order_items(
-  id_order_iteams INT NOT NULL,
+  id_order_iteams INT NOT NULL AUTO_INCREMENT,
   id_product INT NOT NULL,
   id_order INT NOT NULL,
   amount INT NULL,
@@ -89,6 +89,12 @@ CREATE TABLE IF NOT EXISTS order_items(
   FOREIGN KEY (id_order) REFERENCES shop_order (id_order),
   FOREIGN KEY (id_product) REFERENCES shop_product (id_product)
 );
+
+
+
+INSERT INTO STATUS (NAME) VALUES ('in process'),
+('awaiting shipment'),
+('complete');
 
 
 INSERT INTO ROLE (id_role, name)

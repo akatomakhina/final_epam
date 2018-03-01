@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Админ
-  Date: 08.09.16
-  Time: 7:54
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -64,7 +57,6 @@
                             <th class="text-left">${name}</th>
                             <th class="text-left">${price} x ${quantity}</th>
                             <th class="text-left">${inWarehouse}</th>
-                            <th class="text-left">${status}</th>
                             <th class="text-left">${editAmount}</th>
                             <th class="text-left">${delete}</th>
                         </tr>
@@ -72,16 +64,15 @@
                         <tbody class="table-hover">
                         <c:forEach items="${items}" var="item">
                             <tr>
-                                <td class="text-left"><c:out value="${item.product.name}"/></td>
-                                <td class="text-left"><c:out value="${item.product.price}"/> x <c:out value="${item.quantity}"/></td>
-                                <td class="text-left"><c:out value="${item.quantityInWarehouse}"/></td>
-                                <td class="text-left"><span class="label-warning">${item.status}</span></td>
+                                <td class="text-left"><c:out value="${item.product.title}"/></td>
+                                <td class="text-left"><c:out value="${item.product.price}"/> x <c:out value="${item.amount}"/></td>
+                                <td class="text-left"><c:out value="${item.amountInWarehouse}"/></td>
                                 <td class="text-left">
-                                    <form action="/do/update-cart" method="POST">
+                                    <form action="/nk/update-cart" method="POST">
                                         <div class="basket-editing">
                                             <input type="hidden" name="cartItemId" value="${item.id}"/>
                                             <input type="hidden" name="productId" value="${item.product.id}"/>
-                                            <input name="quantity" type="number" class="editing__input" placeholder="Редактировать">
+                                            <input type="number" name="quantity" class="editing__input" placeholder="Редактировать">
                                             <input type="submit" class="editing__button" value="${edit}"/>
                                         </div>
                                     </form>

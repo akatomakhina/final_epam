@@ -16,7 +16,7 @@
         <div class="main">
             <div class="main__about container">
                 <div class="about__title">${titleOne} <p>${titleTwo}</p></div>
-                <p>${paragraph}е™</p>
+                <p>${paragraph}™</p>
             </div>
         </div>
     </jsp:attribute>

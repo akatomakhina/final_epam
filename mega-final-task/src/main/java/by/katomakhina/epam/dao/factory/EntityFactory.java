@@ -107,7 +107,7 @@ public class EntityFactory<T> {
                 order.setIdUser(set.getInt("id_client"));
                 order.setAmount(set.getInt("amount"));
                 Status status = new Status();
-                status.setName(set.getString("status"));
+                status.setName(set.getString("name"));
                 order.setStatus(status);
             }
             return order;

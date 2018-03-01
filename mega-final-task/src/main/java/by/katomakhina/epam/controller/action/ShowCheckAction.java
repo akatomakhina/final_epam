@@ -39,6 +39,6 @@ public class ShowCheckAction extends ActionImpl {
         request.setAttribute("items", productItemList);
         request.getSession().setAttribute("orderID", null);
         Logger.info("check showed successfully");
-        return new View("check");
+        return new View("chek");
     }
 }
