@@ -111,7 +111,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             DAOFactoryImpl factory = new DAOFactoryImpl();
             ProductDAOImpl ProductDAO = factory.getDAO(ProductDAOImpl.class);
-            return (Product) ProductDAO.findById(id, Product.class); //!!!!!!!!! Cast
+            return (Product) ProductDAO.findById(id, Product.class);
         } catch (DAOException e) {
             Logger.error("Cannot find by product id");
             e.printStackTrace();

@@ -67,11 +67,11 @@ public class OrderDAOImpl extends IdDAOImpl implements OrderDAO {
                 order.setIdUser(resultSet.getInt("id_client"));
                 order.setAmount(resultSet.getInt("amount"));
                 Status status = new Status();
-                status.setName("name");
                 status.setId(resultSet.getInt("id_status"));
+                status.setName("name");
                 order.setStatus(status);
+                order.setIdUser(resultSet.getInt("id_client"));
                 orders.add(order);
-
             }
 
         } catch (SQLException e) {

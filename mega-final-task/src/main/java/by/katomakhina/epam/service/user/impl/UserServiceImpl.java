@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
         try {
             AbstractDAOFactory factory = new DAOFactoryImpl();
             UserDAOImpl userDAO = factory.getDAO(UserDAOImpl.class);
-            return (User) userDAO.findById(id, User.class); //!!!!!!!!!!! Cast
+            return (User) userDAO.findById(id, User.class);
         } catch (DAOException e) {
             Logger.error("Cannot get user by id");
             e.printStackTrace();

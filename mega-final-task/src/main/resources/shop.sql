@@ -146,5 +146,22 @@ VALUES ('pleated skirt', 'Calf-length skirt in crêped, woven fabric with an ela
   ('Natural Finish Loose Powder', 'An ultra-soft, loose powder that provides sheer, lightweight coverage, POUDRE UNIVERSELLE LIBRE helps to even skin tone, and set and perfect makeup for a natural, matte finish.', 'Nyx', 13.99, 3),
   ('Silver Reflections Shimmering Powder', 'A highlighting powder softly illuminates the face anddécolleté with a shimmering, pearlescent glow.', 'Burberry', 15.99, 3),
   ('Highlighting Powder', 'An illuminating face powder captures and reflects light to leave a sheer, radiant finish. In shimmery gold shades, with ivory, bronze and rose tints. The handbag-friendly compact (with a brush applicator) offers convenient touch-ups in a flash.', 'Burberry', 18.75, 3),
-  ('Blotting Papers', 'Nestled in an elegant, portable mirrored case, PAPIER MATIFIANT DE CHANEL blotting papers instantly mattify skin by absorbing excess oil. Comes in a pad of 150 papers.', 'Chanel', 52.00, 3)
+  ('Blotting Papers', 'Nestled in an elegant, portable mirrored case, PAPIER MATIFIANT DE CHANEL blotting papers instantly mattify skin by absorbing excess oil. Comes in a pad of 150 papers.', 'Chanel', 52.00, 3);
+
+INSERT INTO warehouse (id_product, amount)
+VALUES (1, 15),
+  (4, 14),
+  (5, 10),
+  (11, 2),
+  (14, 34),
+  (15, 19),
+  (17, 2),
+  (19, 6),
+  (20, 73),
+  (23, 28),
+  (24, 43);
+
+INSERT INTO STATUS (NAME) VALUES ('in process'),
+  ('awaiting shipment'),
+  ('complete');
 

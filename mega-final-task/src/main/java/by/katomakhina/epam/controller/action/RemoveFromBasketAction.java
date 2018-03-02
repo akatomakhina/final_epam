@@ -22,7 +22,7 @@ public class RemoveFromBasketAction extends ActionImpl {
             ProductServiceImpl service = new ProductServiceImpl();
             service.removeBasketItemById(idBasket);
             request.getSession().setAttribute("deleteSuccess", "successful delete from basket");
-            Logger.info("Successful delete from cart");
+            Logger.info("Successful delete from basket");
             view = new View("cart", ActionConstant.REDIRECT);
 
         } catch (NumberFormatException e) {

@@ -31,7 +31,7 @@
                         <div class="registration__form">
                             <form action="<c:url value="/nk/login"/>" method="POST">
                                 <input type="text" name="email" class="registration__input" placeholder="${email}" required><br>
-                                <input type="password" <%--name="password"--%> class="registration__input" placeholder="${password}" required><br>
+                                <input type="password" name="password" class="registration__input" placeholder="${password}" required><br>
                                 <span class="error"> ${varLoginError}</span>
                                 <input class="registration__button" type="submit" value="${submit}"/>
                             </form>

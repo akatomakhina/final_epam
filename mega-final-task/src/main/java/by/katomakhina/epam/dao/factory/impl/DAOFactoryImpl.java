@@ -13,6 +13,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/*
+ * <code>DAOFactoryImpl</code> создает
+ * фабрику, обеспечивающую соединение с бд с использованием пула соединений.
+ * Поддержка транзакций.
+ */
+
 public class DAOFactoryImpl extends AbstractDAOFactory{
 
     private static final DBConnectionPool connectionPool = DBConnectionPool.getInstance();
@@ -20,6 +26,10 @@ public class DAOFactoryImpl extends AbstractDAOFactory{
     private Connection connection;
 
 
+    /*
+     * конструктор <code>DAOFactoryImpl</code> создает
+     * соединение.
+     */
     public DAOFactoryImpl() throws DAOException {
         try {
             if (connection == null) {
@@ -32,6 +42,16 @@ public class DAOFactoryImpl extends AbstractDAOFactory{
         }
     }
 
+
+    /**
+     * Создает сущность дао для соединения с бд.
+     * Использует коннект для соединения с бд.
+     *
+     * @param clazz accepts
+     * @param <T>
+     * @return
+     * @throws DAOException
+     */
     @Override
     public <T> T getDAO(Class<T> clazz) throws DAOException {
         IdDAOImpl dao;
